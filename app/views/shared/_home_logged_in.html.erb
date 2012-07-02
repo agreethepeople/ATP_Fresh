@@ -1,0 +1,34 @@
+  <div class="row">
+    <aside class="span3">
+      <section>
+            <a href="<%= user_path(current_user) %>">
+              <%= gravatar_for current_user, size: 52 %>
+            </a>
+            <h1>
+              <%= current_user.name %>
+            </h1>
+            </span>
+              <%= link_to "view my profile", current_user %>
+            </span>
+            <span>
+              
+            </span>
+      </section>
+      <section>
+            this is just a line of filler
+      </section>
+      <section>
+            this is another line of filler
+      </section>
+    </aside>
+
+
+
+
+    <div class="span9">
+      <div class="hero-unit">
+        <h1>Agree the People</h1> <br><br>
+    	<h2>All the Issues! </h2>
+    	<%= render 'shared/feed' %>
+    </div>
+  </div>
