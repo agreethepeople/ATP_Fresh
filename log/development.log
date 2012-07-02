@@ -31597,3 +31597,1390 @@ Served asset /users.js - 304 Not Modified (0ms)
 
 Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-02 17:55:45 -0400
 Served asset /application.js - 304 Not Modified (1ms)
+Connecting to database specified by database.yml
+  [1m[36m (0.2ms)[0m  [1mDROP DATABASE IF EXISTS "atp_fresh_development"[0m
+  [1m[35m (0.2ms)[0m  DROP DATABASE IF EXISTS "atp_fresh_test"
+  [1m[36m (277.7ms)[0m  [1mCREATE DATABASE "atp_fresh_development" ENCODING = 'utf8'[0m
+  [1m[35m (243.3ms)[0m  CREATE DATABASE "atp_fresh_test" ENCODING = 'utf8'
+  [1m[36m (7.2ms)[0m  [1mCREATE TABLE "topics" ("id" serial primary key, "title" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (2.3ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'topics'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.2ms)[0m  [1mCREATE INDEX "index_topics_on_title" ON "topics" ("title")[0m
+  [1m[35m (3.3ms)[0m  CREATE TABLE "users" ("id" serial primary key, "name" character varying(255), "email" character varying(255), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "password_digest" character varying(255), "remember_token" character varying(255), "admin" boolean DEFAULT 'f') 
+  [1m[36m (1.2ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (1.0ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (1.4ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index index_users_on_email on users (0.8ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 17237
+ AND a.attnum IN (3)
+
+  [1m[36m (0.8ms)[0m  [1mCREATE INDEX "index_users_on_remember_token" ON "users" ("remember_token")[0m
+  [1m[35m (0.8ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (0.8ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (1.0ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.2ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120702210956')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120622231924')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120623021701')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120623023910')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120624042625')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120625223633')[0m
+  [1m[35m (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20120622231924)
+Migrating to AddIndexToUsersEmail (20120623021701)
+Migrating to AddPasswordDigestToUsers (20120623023910)
+Migrating to AddRememberTokenToUsers (20120624042625)
+Migrating to AddAdminToUsers (20120625223633)
+Migrating to CreateTopics (20120702210956)
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36mPK and serial sequence (3.0ms)[0m  [1m SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"topics"'::regclass
+[0m
+  [1m[35m (1.8ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'topics'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mColumns for index index_topics_on_title on topics (0.3ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 17225
+ AND a.attnum IN (2)
+[0m
+  [1m[35mPK and serial sequence (1.5ms)[0m   SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"users"'::regclass
+
+  [1m[36m (1.0ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index index_users_on_email on users (0.3ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 17237
+ AND a.attnum IN (3)
+
+  [1m[36mColumns for index index_users_on_remember_token on users (0.2ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 17237
+ AND a.attnum IN (7)
+[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.4ms)[0m  SELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('alex.gessner@gmail.com') LIMIT 1
+  [1m[36mSQL (2.3ms)[0m  [1mINSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:11 UTC +00:00], ["email", "alex.gessner@gmail.com"], ["name", "Alex Gessner"], ["password_digest", "$2a$10$Xwl6dTxkVjp9Lz6d.oADB.cMjRuO3QE9uOSGGngiXVl5FT2KwG7T2"], ["remember_token", "oWPrv_g0tAB2CB4oIhZlWA"], ["updated_at", Mon, 02 Jul 2012 22:00:11 UTC +00:00]]
+  [1m[35m (1.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.6ms)[0m  UPDATE "users" SET "admin" = 't', "remember_token" = 'oH5yr2-79wdRxcVoCJBx7w', "updated_at" = '2012-07-02 22:00:11.917823' WHERE "users"."id" = 1
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-1@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00], ["email", "example-1@example.com"], ["name", "Stephany Beier"], ["password_digest", "$2a$10$QAmGPMgKeCoKNT/i4EduR.eu9Zj1RwlQLZLPJ13mYA1l1gw9ZyU8G"], ["remember_token", "OZul835t2jcQkcMU7BtALA"], ["updated_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-2@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00], ["email", "example-2@example.com"], ["name", "Arjun Wehner"], ["password_digest", "$2a$10$H2H095eUPHfBNzR5q2luY.onAFRuTE.4DGYu.e8GhM9/APS.KRoVu"], ["remember_token", "WKj7q5w0Pf4HSuWLNOCutg"], ["updated_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00]]
+  [1m[36m (1.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-3@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00], ["email", "example-3@example.com"], ["name", "Elizabeth Pouros"], ["password_digest", "$2a$10$rkdYMpqFIEIF.h5Avu0mkOb/53gpXZt6QF/m7Qv8Zty585s2sVuZm"], ["remember_token", "z64jzS7h-7wLOHdTN78-Qg"], ["updated_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-4@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00], ["email", "example-4@example.com"], ["name", "Dakota Moen"], ["password_digest", "$2a$10$qDYj0lgRInNeJHSgb3J8buIrnOcxp/Iy3qO.09n3mYgmwq21ttA6u"], ["remember_token", "6p-JNOoiZS6goi-UHdLRkw"], ["updated_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-5@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00], ["email", "example-5@example.com"], ["name", "Evans Kuhlman"], ["password_digest", "$2a$10$jHBPZ8qMTjnMg9GVmGUvAOSPvzgNsq7Hnl8ORCyL.jpJgZKhpfKIe"], ["remember_token", "EDoxwzWeTI7rigMU8z4M0A"], ["updated_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-6@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00], ["email", "example-6@example.com"], ["name", "Georgianna Simonis"], ["password_digest", "$2a$10$KcqY1/IqqPhVAZ9TUxCzDOx7Yao.BqJ/bD/brUFcCagp1ZCW3XK2C"], ["remember_token", "odv04JaU_S5imo1c8BwC1Q"], ["updated_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-7@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00], ["email", "example-7@example.com"], ["name", "Toby McCullough PhD"], ["password_digest", "$2a$10$o6JIJ68ZLl8ulIgta9.v8OYQqP.7cot/DnsSsmOb19Wh94.i5w1He"], ["remember_token", "ZEBHrCiKPIxmdlCof7EIlg"], ["updated_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-8@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00], ["email", "example-8@example.com"], ["name", "Cara Goyette"], ["password_digest", "$2a$10$5VoQodMFgOTWELAFnm3eeu5DKXgWqzEkELFvMGE5tRFLmVK4OihlG"], ["remember_token", "8-WEZSbmW9zHYtas94eDwg"], ["updated_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-9@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00], ["email", "example-9@example.com"], ["name", "Amely Donnelly"], ["password_digest", "$2a$10$2JDHDodoXF./fVTAfghas.Rx7DAAqJdaUyfLdvfly0vdNMPBgdqU."], ["remember_token", "q9MslpegRFg7AmvpkFltkQ"], ["updated_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00]]
+  [1m[36m (1.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-10@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00], ["email", "example-10@example.com"], ["name", "Alexandro Yundt V"], ["password_digest", "$2a$10$hyl00eGWMDq5/HOlh5YTH./WGTK0Yyv84X7tq/yhtb2YfSg21W2Jq"], ["remember_token", "hKYoY9SMUBezg8PtmjlZ6Q"], ["updated_at", Mon, 02 Jul 2012 22:00:12 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-11@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00], ["email", "example-11@example.com"], ["name", "Mr. Rosina Spinka"], ["password_digest", "$2a$10$zfMfg8eOHE5Rr8PWcvh4YOR.vyVvORINzuhDv/xZn0L0FHk6oYaMC"], ["remember_token", "AHxDKoHNtVm9fjA2nHURww"], ["updated_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-12@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00], ["email", "example-12@example.com"], ["name", "Elwyn Macejkovic"], ["password_digest", "$2a$10$qagcds4Ppz1tzMkVe94BrOxMNk/KuuV5QgjYuVRTgDVfud1/UnfbC"], ["remember_token", "PNtbZJjvMs5k3nbwqAAWTw"], ["updated_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00]]
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-13@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00], ["email", "example-13@example.com"], ["name", "Alfred Zboncak"], ["password_digest", "$2a$10$bgk7J.yZWi12Pr8aIZ0ZDOsOvYKywc11G6gz7nPaQaTPWU/sTgJw2"], ["remember_token", "RedBdLffFT1POWXSuOYnLw"], ["updated_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-14@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00], ["email", "example-14@example.com"], ["name", "Freddy Zulauf"], ["password_digest", "$2a$10$m0ho0BNYJndASSRqRfPlsOUjGIKdOse2vu2W6L6z/0CJclaPpPVJi"], ["remember_token", "S_Cm9X05v4oMMAy3vFTVZg"], ["updated_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-15@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00], ["email", "example-15@example.com"], ["name", "Athena Hessel"], ["password_digest", "$2a$10$DsB9HxGyoIp8uk3d4NFeGOt/jySjuG50CHnlXZDl8lRkpnJoQTJsu"], ["remember_token", "UD7eQogFqe5Gjz8yvGgcqQ"], ["updated_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-16@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00], ["email", "example-16@example.com"], ["name", "Freddy Collier"], ["password_digest", "$2a$10$vaZNXd2ZUmupoGkwWjhxXO2GpG/3nyr6AGoZWNX3E03W5oCx0A6tq"], ["remember_token", "ij94XBly6xxLi8ouT3C6VQ"], ["updated_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-17@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00], ["email", "example-17@example.com"], ["name", "Odell Hettinger"], ["password_digest", "$2a$10$ErgDT.u07f59DUirQE.HEuAzCR3YYUL2isyIUwq8nCSc9mKts9pce"], ["remember_token", "R1elC4wYy1nx0wZhx6ZdWA"], ["updated_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-18@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00], ["email", "example-18@example.com"], ["name", "Chadd Littel"], ["password_digest", "$2a$10$LIHz9RaRuWx.FauqNOMH1.pj0Djtd9Wx58J/hydaTD9HIt1klPHhO"], ["remember_token", "5zuGUgvIA-oYahk6RugqBA"], ["updated_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-19@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00], ["email", "example-19@example.com"], ["name", "Tyson Predovic"], ["password_digest", "$2a$10$MR4uhreFhyN1er1b61bwiu.VB6rrxNpsW2FwLFh6xQIFF5MDcDlPm"], ["remember_token", "AHHpC54dEAOUkvuEXhq62g"], ["updated_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00]]
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-20@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00], ["email", "example-20@example.com"], ["name", "Else Ruecker"], ["password_digest", "$2a$10$w3eJso5SGUyXHf3i7JErgO2Nc6y2jLmoXavDfqfJm5PNcHXHk/b7K"], ["remember_token", "gljtlaO3ytqyY58bvMCnfA"], ["updated_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-21@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00], ["email", "example-21@example.com"], ["name", "Mr. Harmony Moore"], ["password_digest", "$2a$10$xBgpBx0yJ0kWa0QSn1V9WOBlzrf3teWjJi9.SBP5gLtzAZD3p4Wd."], ["remember_token", "ReHST1UrXFWpt6S5CXQFyw"], ["updated_at", Mon, 02 Jul 2012 22:00:13 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-22@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00], ["email", "example-22@example.com"], ["name", "Yesenia Fritsch"], ["password_digest", "$2a$10$2CIdGI4mSB8PKWfNK9q9neHSPK9HAjMNcE1Hu78C3rw/0fQAtKHaO"], ["remember_token", "TPYWx_DKroprbVhHCtxeYA"], ["updated_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-23@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00], ["email", "example-23@example.com"], ["name", "Cornelius Lindgren"], ["password_digest", "$2a$10$UdtayjMMQUJogfR8hkS1lOek.7h8ZZokui4UiRaLS352I/QTAsOoi"], ["remember_token", "QYT4e0Jb_gFsbnPqrtxBjw"], ["updated_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-24@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00], ["email", "example-24@example.com"], ["name", "Betsy Jerde"], ["password_digest", "$2a$10$O3nAhnBo9euK875FmxWVmeuF8fnSmUVuxtm2mwcf3O5KCDvHsCisG"], ["remember_token", "orX7zuX3c97sZ5YqZ5B5uQ"], ["updated_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00]]
+  [1m[36m (1.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-25@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00], ["email", "example-25@example.com"], ["name", "Raphaelle Reichel"], ["password_digest", "$2a$10$95NbCTm.YOKP02.ubKLwY.Xrz6CN6z7bUOHmWs9xNNjk6ADvCH6ve"], ["remember_token", "WM0f2es_LGlELXMfJt7yTw"], ["updated_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-26@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00], ["email", "example-26@example.com"], ["name", "Lucile Gorczany IV"], ["password_digest", "$2a$10$DlCtHfDX8auMWDb7x2fqTehHVj3rOneijgVv.HI8WDDtHLGNPXIGG"], ["remember_token", "Eq5vB5lju0lCgneFAhQSfg"], ["updated_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-27@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00], ["email", "example-27@example.com"], ["name", "Arlene Swaniawski"], ["password_digest", "$2a$10$YJ5Co1ik27t4bMcQu3FRy.HDVll6Rbc2r3m5.ojTi8P0d72czHqSO"], ["remember_token", "lgOeXqaV0_eCkh8i3aQlVw"], ["updated_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-28@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00], ["email", "example-28@example.com"], ["name", "Stella Ratke"], ["password_digest", "$2a$10$wbVNBVtrWPsVu/tL9HS19O4f5lE0IwoGylMuxI0PTRm.lPb4LmKpC"], ["remember_token", "RIlWry3nJm44qVS4XdY32A"], ["updated_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-29@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00], ["email", "example-29@example.com"], ["name", "Hailey Shanahan"], ["password_digest", "$2a$10$5HvtPpPiQ8UEEkDZXXogLeqvOR7Go276suVebJGwjUTStlhaNV2d2"], ["remember_token", "4BNQz7a3lkx9ImttbxdaoQ"], ["updated_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00]]
+  [1m[36m (1.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-30@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00], ["email", "example-30@example.com"], ["name", "Zachariah Nienow II"], ["password_digest", "$2a$10$e4l4E84P6kecOjT4dSiZYu58Bf1I.k.TwnhHQY3iSDG1dmg82MIG2"], ["remember_token", "uiXDn-Fa2iCv-N3oJTl6jg"], ["updated_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-31@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00], ["email", "example-31@example.com"], ["name", "Amely Collins"], ["password_digest", "$2a$10$LCXfFoZJJzsJYdQ5iViRbevsWUM3u3sMtmTCI52qitFeZsyYEnlvO"], ["remember_token", "AMlbOXjUrhmrtmlYWA1mGA"], ["updated_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-32@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00], ["email", "example-32@example.com"], ["name", "Elda Quigley"], ["password_digest", "$2a$10$wLM3GshTg6HX2JpGLVOPMuXPxBLaB9JrgEBQyU5HpoP.gFsAWqr6q"], ["remember_token", "rO98tLYAUyTVnKtOeyfsEA"], ["updated_at", Mon, 02 Jul 2012 22:00:14 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-33@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00], ["email", "example-33@example.com"], ["name", "Kathryne Feest"], ["password_digest", "$2a$10$eLjgmVoalJBs5WgrDRS51eJsH7yilZvswVlAPNxbOYDMr7jzHf/nu"], ["remember_token", "KVCU58XcCSx9x07L3l42Sg"], ["updated_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-34@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00], ["email", "example-34@example.com"], ["name", "Kelli Ondricka"], ["password_digest", "$2a$10$Bo5dSnIFh7CtlnvW8qfhauYiBZ2HVB/lGETagTYdvTn9ILlm70iTu"], ["remember_token", "dg9uyFUgp2qxKAYKe9CFfg"], ["updated_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-35@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00], ["email", "example-35@example.com"], ["name", "Terence Frami"], ["password_digest", "$2a$10$Dua48dXHeWpesfiwbCBqZucOI8VeGvzFJ3blsDDZhLl2USC/6Fj/2"], ["remember_token", "xfLEox4caxSqMQdImrHZ-g"], ["updated_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-36@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00], ["email", "example-36@example.com"], ["name", "Ms. Cynthia Abernathy"], ["password_digest", "$2a$10$/QytcQjdtqYot9aZVRAb.eoixoz5ZJiqf8t08i6FToMH7FzvJmLPC"], ["remember_token", "cH9BM8kbfNPQivODEKeSPA"], ["updated_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00]]
+  [1m[36m (1.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-37@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00], ["email", "example-37@example.com"], ["name", "Royce Schultz DDS"], ["password_digest", "$2a$10$WHcN8/QuRKqPxuIG4z5t7uFw4LXR5/ObJT6DG58AHB38cQ3o4pxui"], ["remember_token", "G5G0Vyvn82ra3Lxlz55y-A"], ["updated_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-38@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00], ["email", "example-38@example.com"], ["name", "Layne Bernhard"], ["password_digest", "$2a$10$dpIvDIHmy3yQz1spsCTTGO.23Q6rElsLhKA0h0PA50y8iYMTzD.2S"], ["remember_token", "qmRC28kIqLV2MtpcuO_CRw"], ["updated_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-39@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00], ["email", "example-39@example.com"], ["name", "Marco Johnston DDS"], ["password_digest", "$2a$10$Sy6S1S6SmyyCIlt3V3RHgOoU3m3rOXNyQRVRw9vXrhMnoWWipwKia"], ["remember_token", "raueKBoknJFYXFTdTM8nfw"], ["updated_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00]]
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-40@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00], ["email", "example-40@example.com"], ["name", "Wendy Funk"], ["password_digest", "$2a$10$UDgyTaP9JGj23wi0kb4JZ.aPl3HHjUnLGpv/PhfraQWV0A2WFcQzK"], ["remember_token", "K5h8PDN-CgY2oi874JtY1Q"], ["updated_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-41@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00], ["email", "example-41@example.com"], ["name", "Aimee Mertz"], ["password_digest", "$2a$10$QwmQ..pVyml.67wlcPp3KukAdM.AkrBolAgU68ev/uIcEbeFPZqQ."], ["remember_token", "FqBsVTQnI5rAvehs1BMuww"], ["updated_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-42@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00], ["email", "example-42@example.com"], ["name", "Dr. Leanne Bayer"], ["password_digest", "$2a$10$5sYGhG.VG1vvwL5HLclN.OfL2ZI/9Egvvbl0Ryi/jkDhJYVJnFVGK"], ["remember_token", "p_C9OE4_KdVt5yPWPwXAoA"], ["updated_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-43@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00], ["email", "example-43@example.com"], ["name", "Harrison Heaney PhD"], ["password_digest", "$2a$10$/fwLx/ClmsWL28AL8csU6.jVjA.A0bDbct3cXn7bmP5eTtf0sAZmK"], ["remember_token", "dvfyw4DkIHkt1TJ9SzyOJg"], ["updated_at", Mon, 02 Jul 2012 22:00:15 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-44@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00], ["email", "example-44@example.com"], ["name", "Alexis Rowe"], ["password_digest", "$2a$10$VkWlpyvV9qEgAscPWMC3QuGR09Qq3Pi62Wgr2mRqEYOgS.iCwrZPa"], ["remember_token", "1B92zSbhCk2f5VIZ7kAUFg"], ["updated_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-45@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00], ["email", "example-45@example.com"], ["name", "Gavin Tillman"], ["password_digest", "$2a$10$CL/VQaW7JkvOYeaopZAQ3eGDC5JSFv/E24h.407wxheXcfExuZiAy"], ["remember_token", "kFVoid5MkWi_2MMrVwqsJQ"], ["updated_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-46@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00], ["email", "example-46@example.com"], ["name", "Tavares Bahringer"], ["password_digest", "$2a$10$fQbXxDiSyyRBlbyRmubx5OiF.UA6h00zK4LqTMdNa8Vm7bxRYBCZ."], ["remember_token", "jVUqwmJyCw_AqCxB_Mbtrw"], ["updated_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-47@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00], ["email", "example-47@example.com"], ["name", "Leif Bashirian"], ["password_digest", "$2a$10$VxrybOYHh3gC3FXnNWt1ge9rywpkqJkkKLbDqaYfAMD7GsaJJKxci"], ["remember_token", "Dd6-GI47hiGEfaEPt9DNQQ"], ["updated_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-48@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00], ["email", "example-48@example.com"], ["name", "Mrs. Demarco Zulauf"], ["password_digest", "$2a$10$TsFyQk4fKZEXI0E7JVABi.0g2Iey9rw4NL75dtI6MwVP/8F4mSHA2"], ["remember_token", "piZh_Hsi0zgzf-_mDK0oYg"], ["updated_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-49@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00], ["email", "example-49@example.com"], ["name", "Dr. Fritz DuBuque"], ["password_digest", "$2a$10$SsYFzXKQ0dQaK5Fors34Bej0Vvw4jlPiif9fR/s579cIQBJsgPm8i"], ["remember_token", "5zBQW8ysm_UZ_0W3GVRDig"], ["updated_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00]]
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-50@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00], ["email", "example-50@example.com"], ["name", "Kayli Barrows"], ["password_digest", "$2a$10$Ljz2abPvbdrEEhBMwc.C0eVrI3sePoaVaP0amwF1GnYHog8nK8iJq"], ["remember_token", "qP9-d-oGEbzXzEVBmD17tA"], ["updated_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00]]
+  [1m[36m (1.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-51@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00], ["email", "example-51@example.com"], ["name", "Ms. Lon Koepp"], ["password_digest", "$2a$10$2Dk.EC2tGX3tsReSzcEzLuABaJo9nX8xdTw/mdTVEADnJ0TAUjBSq"], ["remember_token", "E7z6cZY-WDVCDJ0D7DMqmA"], ["updated_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-52@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00], ["email", "example-52@example.com"], ["name", "Keira Reinger Jr."], ["password_digest", "$2a$10$Klq.HBHTTfr4NiTLQPRtM.E3hg0YqK1bMHRPSDIJf.R0mLLC9swl2"], ["remember_token", "Yele6Os4WvhYNY3Kgfwx3Q"], ["updated_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-53@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00], ["email", "example-53@example.com"], ["name", "Dr. Marianna Cremin"], ["password_digest", "$2a$10$C75EXb7qPz.RtdyaFVUHIeGbnWfCiGtf0m2dfO6RJTdpw7v9Dym7."], ["remember_token", "3iaqGMjbMXXxm1bvWZpE7w"], ["updated_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-54@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00], ["email", "example-54@example.com"], ["name", "Dr. Webster Jakubowski"], ["password_digest", "$2a$10$T6/nycE2j3qk80/BhbeElONjedUVVwuXQFSNBx8nVNS8g3q9yag2u"], ["remember_token", "qgItnSvW8xlpTkAzMm3r_g"], ["updated_at", Mon, 02 Jul 2012 22:00:16 UTC +00:00]]
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-55@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00], ["email", "example-55@example.com"], ["name", "Wilfrid Wiza"], ["password_digest", "$2a$10$3qrMDjNAhKj.OnJFqdZ8Nu6MiOg2nFty2O.UzR5fhxbvOoz0bp.hy"], ["remember_token", "MN8gpMPQA2FFImRX6F_MhQ"], ["updated_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-56@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00], ["email", "example-56@example.com"], ["name", "Webster Runolfsdottir"], ["password_digest", "$2a$10$Igu5XeBa3xHMBbsaudplxeli5BuEXi2ZoKhlhJnzr.Zb6lOs8.jVG"], ["remember_token", "3c_oQ4zldCAYOlaElwG6ZQ"], ["updated_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-57@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00], ["email", "example-57@example.com"], ["name", "Jace Nicolas"], ["password_digest", "$2a$10$VHsTXfyvZzO3k9HtumFnCuUicn4hvCYrDFbuyWA5jZSGvqWfv9F8G"], ["remember_token", "cDvRJmGyNs93i95F23Eseg"], ["updated_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-58@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00], ["email", "example-58@example.com"], ["name", "Destany Quigley"], ["password_digest", "$2a$10$HKAQe26JUaAbSUV2EgB58Oxm5gTb6K1vN8Ui0n3DRljxCmlAL/t2O"], ["remember_token", "cmW4kWeEV_dxR4Ia0mZQZQ"], ["updated_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-59@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00], ["email", "example-59@example.com"], ["name", "Mrs. Micaela Willms"], ["password_digest", "$2a$10$q/Zw.tGCqZ9bSMoa8EWO1OfTq/KgT2iA57Kz.2kdzz6u8rXCyOJ7m"], ["remember_token", "1uTvwMDdBQE34ZPotmscDQ"], ["updated_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00]]
+  [1m[36m (1.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-60@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00], ["email", "example-60@example.com"], ["name", "Alanna DuBuque"], ["password_digest", "$2a$10$s1AINIFNilgJ.yFcm8Nb6.52sXE/ZRgx4wKB36nDP/hC40WyOkbka"], ["remember_token", "EMxYLOwToNds8Pv_dwpIww"], ["updated_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-61@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00], ["email", "example-61@example.com"], ["name", "Esteban Lowe"], ["password_digest", "$2a$10$9TQAZkO61zH22TeQlvs1jO7XkG2BYLYj4Ic/oriSHvVEBjDFUUR4q"], ["remember_token", "us6g06v20gLEvJmp3g11tA"], ["updated_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-62@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00], ["email", "example-62@example.com"], ["name", "Cynthia Quitzon"], ["password_digest", "$2a$10$PU.NH.HJ9OAkHlcuOAYeUu2H0qY4ul//1xpEy5UH/X7i9/qPwSKpm"], ["remember_token", "nRZ8_9hwBiRr9mKSxr0lSA"], ["updated_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-63@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00], ["email", "example-63@example.com"], ["name", "Elijah Leuschke"], ["password_digest", "$2a$10$U9Oi6c1ukGSC0MYW48zxt.hOQnwEId5Mctypkp4V7.pt27jAYgRd."], ["remember_token", "V7hWaZd4mn1LO-AAhHk3VA"], ["updated_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-64@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00], ["email", "example-64@example.com"], ["name", "Citlalli Pacocha"], ["password_digest", "$2a$10$5H2rkNoDRJiz5zkgrD6Gv.6hQSkNyogAG3mNJYeY0RLnhuK3tPBba"], ["remember_token", "V-dLKsg3ic5MnLD8CcSBSQ"], ["updated_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-65@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00], ["email", "example-65@example.com"], ["name", "Queenie Gerlach"], ["password_digest", "$2a$10$2pFnNq4XMuR5k7ZZoPHtxuglH2O.h/EINYTSsexen8anqv7LbKW.."], ["remember_token", "OzIpTPBWtlugnIb8Dhlv6A"], ["updated_at", Mon, 02 Jul 2012 22:00:17 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-66@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00], ["email", "example-66@example.com"], ["name", "Lina Rau III"], ["password_digest", "$2a$10$s6FT9WmqYP827eRoo6RIV.HhKl91v8DzfL5pZp6tOhD6A8NkD.8VO"], ["remember_token", "Mtw-mWMzuJbtjMxjh8ZdRA"], ["updated_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-67@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00], ["email", "example-67@example.com"], ["name", "Dillon Borer"], ["password_digest", "$2a$10$.DweeD2J69Z4DhbqBATumeYddLqwWHG79vwuCLYJA1rhA1Di5xbyC"], ["remember_token", "l_FBPN9TFL4S7uRt5YHYAQ"], ["updated_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-68@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00], ["email", "example-68@example.com"], ["name", "Mrs. Laurel Morar"], ["password_digest", "$2a$10$2fg2Jcyb.5OUh.0W3slGFedMmBp8CoSOuvTAGFiD9shMsUZ2.8xTq"], ["remember_token", "gIG6rja0MhuGeQs3x-buww"], ["updated_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00]]
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-69@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00], ["email", "example-69@example.com"], ["name", "Robbie Anderson I"], ["password_digest", "$2a$10$zSs6NTWxsc85ScRrApfnJOGABXIxybtrtvrghz8mZ427HnqnYdt2S"], ["remember_token", "hWjefEYBg_wyt6U1pwMCpw"], ["updated_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00]]
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-70@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00], ["email", "example-70@example.com"], ["name", "Koby Bergstrom"], ["password_digest", "$2a$10$otJAX2plZ8PLNryw0CDLUe/sAIQvLOy44akj3cVpMC060OTg/33Om"], ["remember_token", "Ao2kZBMi_T_pgd_Vu2RrMQ"], ["updated_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00]]
+  [1m[36m (1.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-71@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00], ["email", "example-71@example.com"], ["name", "Mrs. Arnulfo McKenzie"], ["password_digest", "$2a$10$OZFBavfpegDfY30NoBN7W.Bh1CFFTmMmEQJitUESuJt9qs05Almde"], ["remember_token", "r-xqWPp0B3YOUDVImBGgqQ"], ["updated_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00]]
+  [1m[36m (1.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-72@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00], ["email", "example-72@example.com"], ["name", "Laurie Wilkinson"], ["password_digest", "$2a$10$ypWguM4ecUST7BhoBJtaOuuxxE1t5zQGYAfMRDKugCRFZeWO1l.Q2"], ["remember_token", "aNuoDGxvOSv-HXlCr9n1dA"], ["updated_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-73@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00], ["email", "example-73@example.com"], ["name", "Miss Kellie Smitham"], ["password_digest", "$2a$10$nt3KkRZ7JS3pE8PSdnAPvOue9l0BGy7lT3hknrEdDUl5NhKzE/nfu"], ["remember_token", "qDbj5cd8byuBvZR3o2p9uA"], ["updated_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-74@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00], ["email", "example-74@example.com"], ["name", "Jack Anderson"], ["password_digest", "$2a$10$ilknmbGmqOP2Z/x9QY3S2ewuz3mP3jD9fCUJ3ln11LmgzwEw3qBpm"], ["remember_token", "QamOecTmzhHePBorvixOVQ"], ["updated_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00]]
+  [1m[36m (1.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-75@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00], ["email", "example-75@example.com"], ["name", "Abagail Ward Jr."], ["password_digest", "$2a$10$g6/0PoUnKYn4xh2clwBhpOBxWMJczduKVgQUNpPzbeJRiiBaqHHum"], ["remember_token", "V7bTvGXWOlu2QBBGKv0udw"], ["updated_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-76@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00], ["email", "example-76@example.com"], ["name", "Ellie Koelpin V"], ["password_digest", "$2a$10$sD2UOHcrdAQ9JbpR09sodu6Rx.IgU2FUevjPZTlfBDfKc.pXHDhxS"], ["remember_token", "bvaVg1DI8qL5EoTpdnVg5A"], ["updated_at", Mon, 02 Jul 2012 22:00:18 UTC +00:00]]
+  [1m[36m (1.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-77@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00], ["email", "example-77@example.com"], ["name", "Marta Murphy"], ["password_digest", "$2a$10$N4uSjdpvb1anKPi6ifiI0ufqDO2gyqa8JbOL6//wte7cjUGbt91hi"], ["remember_token", "uNaye0n4G_70GXUdyLgntg"], ["updated_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00]]
+  [1m[36m (1.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-78@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00], ["email", "example-78@example.com"], ["name", "Laury Thompson"], ["password_digest", "$2a$10$go0Yavc/VqwZy90k.PQqQO6bUTM3OeVVpFHBUw2mdfzdNvrWZ6Yn."], ["remember_token", "dl9ocuY5rvp1hFWAQ6Is8A"], ["updated_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-79@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00], ["email", "example-79@example.com"], ["name", "Lorenzo Beer PhD"], ["password_digest", "$2a$10$B1N91/qfXSHjmmqbNnE6CuQ.QZVcTZvn7UpCax/llIJywq9k8BT0W"], ["remember_token", "Titgwot0Y0CWz_LjumYI8Q"], ["updated_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00]]
+  [1m[36m (1.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-80@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00], ["email", "example-80@example.com"], ["name", "Consuelo Turner"], ["password_digest", "$2a$10$N2Otetu1KB7c/T46XOzX0.RlVHz61zrjHBCb72t2lEWTVEVfgk1f."], ["remember_token", "ZMiV3Mq_6sjbWnfUvRVoyQ"], ["updated_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00]]
+  [1m[36m (1.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-81@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00], ["email", "example-81@example.com"], ["name", "Samantha Will"], ["password_digest", "$2a$10$/XoIWUGFVWPx1UfcEWhW0.AaC6r1tSK2p01MJMI4x4.8NBWy62edy"], ["remember_token", "eMFgD7Pvru1tpIy8MSDLnw"], ["updated_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-82@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00], ["email", "example-82@example.com"], ["name", "Mrs. Micheal Hilpert"], ["password_digest", "$2a$10$NcJ/ABiMyLzTtXMJgEipi.dYtlD.VfOWLxlzR4.bAMmbtji4JADvu"], ["remember_token", "v0nxrqn0Sb0wQBo74Y6UfA"], ["updated_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-83@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00], ["email", "example-83@example.com"], ["name", "Berenice Pagac"], ["password_digest", "$2a$10$oA9rJsPdQOv2LeUlzGP0ee2q6LcyQ4K.zezMryBl2ENqoFw.EZMBO"], ["remember_token", "VO01eKNJs5ncVCnAr90_0w"], ["updated_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-84@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00], ["email", "example-84@example.com"], ["name", "Edythe Runolfsdottir"], ["password_digest", "$2a$10$TDOv.8YVnjUvyy2Rqx0hf.0EG1MdDx3sruFD/jvmxG.WmHLvfhkci"], ["remember_token", "pCQRQHWfqY30uKcQ34mRAA"], ["updated_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-85@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00], ["email", "example-85@example.com"], ["name", "Dr. Tevin Kirlin"], ["password_digest", "$2a$10$sRJmDR4NcJEH7u9ioawGru5U/Vm9uESaYUPFVseYF1WgwogmGNM7W"], ["remember_token", "7Px8zM1tdyhNyv5tptknEg"], ["updated_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-86@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00], ["email", "example-86@example.com"], ["name", "Ellis Wuckert"], ["password_digest", "$2a$10$uqK52/kZ9DR2J4PEnllN/uoCkukeGjpQjLwo5zGpAz8/ledIip5Lq"], ["remember_token", "8mf6qFY1lXQre3jEOkoesQ"], ["updated_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00]]
+  [1m[36m (1.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-87@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00], ["email", "example-87@example.com"], ["name", "Ms. Crystel Little"], ["password_digest", "$2a$10$yfXnbVLXAJ2S/keuBESaFONjOWmIY4KzohgsZdy.QvYwWzd9nGJoy"], ["remember_token", "rc0tYwnxw8oCCPkzrpXPcg"], ["updated_at", Mon, 02 Jul 2012 22:00:19 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-88@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00], ["email", "example-88@example.com"], ["name", "Marley Kshlerin"], ["password_digest", "$2a$10$ldScJ4oOpyc7f4l2kLKaLuRRyy0cm5Nc9A87Qbn4VMum.gM1VIY82"], ["remember_token", "w00oUkni5dOJmUhOX8U3QQ"], ["updated_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-89@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00], ["email", "example-89@example.com"], ["name", "Leila Kuhic"], ["password_digest", "$2a$10$oXP/1/kYGR2fxyc2WUXKROSi8gj866uPhky6eE/jhrX/p8t9Fg9Ua"], ["remember_token", "kQWbuTO1qIDmWwBhjuHRXQ"], ["updated_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-90@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00], ["email", "example-90@example.com"], ["name", "Misael Olson"], ["password_digest", "$2a$10$87QEhg0UxvF5JFG8r.biG.AMa4sPNS28r3gbJfJSX1ggzAbyWRtOG"], ["remember_token", "oqp4-ju3TT0hZyrl8fwraQ"], ["updated_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-91@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00], ["email", "example-91@example.com"], ["name", "Miss Rosa Lubowitz"], ["password_digest", "$2a$10$iHAiVAX5KYCxilxQeyPSQ.FVhIPTEwP6imPzLsZ4XpOBC4qlYIsNC"], ["remember_token", "WKmJ9UEmfmNCDe0wZpLR8A"], ["updated_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-92@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00], ["email", "example-92@example.com"], ["name", "Dr. Simeon Hackett"], ["password_digest", "$2a$10$XwC7sQWmCP9HSFPAYxY0bOIjMxmEbDRPBWaKo/QtgpCizUOF6x/WG"], ["remember_token", "0CjWI5DWVIsxSHAxl5KUAQ"], ["updated_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-93@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00], ["email", "example-93@example.com"], ["name", "Forrest Kerluke"], ["password_digest", "$2a$10$jt1eFfqRa87870evFzCzgeK6IGt2dvWp33ZmTazCfL1NiTO5CN4Hi"], ["remember_token", "IZafQHUQhVag6wyuxknG5w"], ["updated_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00]]
+  [1m[36m (1.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-94@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00], ["email", "example-94@example.com"], ["name", "Amos Hermann"], ["password_digest", "$2a$10$RI4fB4IGFOgkSyTLoHwHneQiZM8rrLFtlQEsIPwxIIMJ6oT3zvLF2"], ["remember_token", "XKxhlQnB18YWmgf_Vto0mA"], ["updated_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-95@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00], ["email", "example-95@example.com"], ["name", "Frederic Orn"], ["password_digest", "$2a$10$/xvhcWfr8wZbihmkDxbXnOnI3LhmqzPPO8gkKw4V0ahTvA4ndUWKa"], ["remember_token", "pYO7xdanT5cv6Y5Q3t2zCQ"], ["updated_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-96@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00], ["email", "example-96@example.com"], ["name", "Tianna Mueller"], ["password_digest", "$2a$10$AWZmBe8WZLIgIQPdc2ce1.1eYmSFUmLHh4w/8.fuoYkQUIEG4KvQ."], ["remember_token", "eUxS8upgJ-TWsKd7ANnFjg"], ["updated_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.8ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-97@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00], ["email", "example-97@example.com"], ["name", "Zella Mosciski DDS"], ["password_digest", "$2a$10$fvihBcAJ4EYqcuZEFc0e7epe3DZorfkyWjAts3ieqKcr433yNdzda"], ["remember_token", "wGOPRGymTqT8Lr2_3qv0cw"], ["updated_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.8ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-98@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00], ["email", "example-98@example.com"], ["name", "Donnell McDermott Sr."], ["password_digest", "$2a$10$rd2lvLlK3UIiWGBNr/.nZeo9sf4AQcOBi8i59jW4fxnBAhod49uDK"], ["remember_token", "akptbhc2Fla_BW_jd1HJZQ"], ["updated_at", Mon, 02 Jul 2012 22:00:20 UTC +00:00]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('example-99@example.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["email", "example-99@example.com"], ["name", "Ms. Otha Nicolas"], ["password_digest", "$2a$10$.N4YxhpH99DB9hBN6QVFuOItVnQ62XEsWWRRMwm35CCP2S171COfa"], ["remember_token", "gFmLN1lZUdm1TRVfx3wUwA"], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Aut et qui odio quos modi placeat inventore."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Dolore eligendi sapiente et qui."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Ipsum aut qui maxime pariatur quo."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Tempora quia nobis minus architecto placeat id voluptatibus."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Quia laborum natus consequatur rerum."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Accusantium explicabo soluta aut qui est dolor."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Et delectus velit excepturi et unde ut est."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Soluta aut aut suscipit a commodi officia."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Eligendi aut ipsum sed quod delectus odio."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Aspernatur repellendus sed qui id."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Expedita ea sit ab culpa aut."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Est incidunt doloremque consequatur ut minus."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Omnis et doloribus id pariatur nam non."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Animi possimus labore et eligendi aut ut minus."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Eum quaerat repellat quia aut maiores qui."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Autem voluptatibus ea ullam omnis praesentium accusamus explicabo."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Aliquid ex alias nihil quaerat quidem sed."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Rerum quo soluta voluptas sit doloribus sed corrupti."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Sed ut et reiciendis qui minus recusandae."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Molestiae deleniti et excepturi fuga rem quos corrupti totam."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Omnis maiores excepturi ut nisi amet sed et atque."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Officiis sed numquam et nihil qui et et quo maxime."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Quisquam molestiae cumque qui aperiam nihil soluta."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Sed non voluptatem sunt omnis."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Quam nulla qui facilis minus magnam exercitationem."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Tempore quia rerum id sapiente."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Rerum ea magni numquam totam aliquam."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Dolor libero eaque nulla voluptas aperiam rerum earum ullam."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Doloribus totam est ut et incidunt qui."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Libero laborum labore nesciunt aut adipisci quia atque consequatur."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Rerum harum doloremque totam dolorum rerum quos."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Veniam facere omnis voluptate assumenda corrupti vitae."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Quo porro consequatur provident numquam et ea eos perspiciatis."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Velit quas odit eius quaerat rerum nihil."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Magnam aut labore inventore dolores dignissimos."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Iure possimus porro quia itaque iste."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Pariatur iure ad quae rem blanditiis voluptatum qui quo quisquam."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Animi consequuntur est molestiae esse modi quae est quos."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Autem vel ut harum laborum."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Voluptates laboriosam velit facere iste nihil repellat quas voluptate."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Est assumenda nihil officia doloribus impedit debitis."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Provident aut et repudiandae ullam non in aut."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Et animi aut est dignissimos."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Dicta harum voluptate laboriosam quia."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Qui nisi unde repudiandae dolor officiis id at voluptate."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Quos dolores ut eos qui."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Itaque rem hic magnam qui quam non quia rerum ut."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Saepe perspiciatis non facere eligendi quaerat sed magnam."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Commodi ratione sit accusantium at consectetur."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "topics" ("created_at", "title", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00], ["title", "Maiores est eum libero sint incidunt ut alias."], ["updated_at", Mon, 02 Jul 2012 22:00:21 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-02 18:01:12 -0400
+Connecting to database specified by database.yml
+Processing by StaticPagesController#home as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."remember_token" = 'hil4bvkzuxaCbY-1InpC9g' LIMIT 1[0m
+  Rendered shared/_feed.html.erb (0.3ms)
+  Rendered shared/_home_not_logged_in.html (1.9ms)
+  Rendered static_pages/home.html.erb within layouts/application (50.1ms)
+  Rendered layouts/_shim.html.erb (0.3ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."remember_token" = 'hil4bvkzuxaCbY-1InpC9g' LIMIT 1
+  Rendered layouts/_header.html.erb (2.2ms)
+  Rendered layouts/_footer.html.erb (0.7ms)
+Completed 200 OK in 114ms (Views: 104.1ms | ActiveRecord: 10.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /application.css - 304 Not Modified (19ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /custom.css - 304 Not Modified (30ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /static_pages.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /users.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /sessions.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /jquery.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap-transition.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap-alert.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap-button.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap-carousel.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap-collapse.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap-dropdown.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap-modal.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap-scrollspy.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap-tab.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap-popover.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap-tooltip.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap-typeahead.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /bootstrap.js - 304 Not Modified (14ms)
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /sessions.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /static_pages.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /users.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:13 -0400
+Served asset /application.js - 304 Not Modified (16ms)
+
+
+Started GET "/signup" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Processing by UsersController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."remember_token" = 'hil4bvkzuxaCbY-1InpC9g' LIMIT 1[0m
+  Rendered shared/_error_messages.html.erb (0.4ms)
+  Rendered users/_fields.html.erb (138.1ms)
+  Rendered users/new.html.erb within layouts/application (140.9ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."remember_token" = 'hil4bvkzuxaCbY-1InpC9g' LIMIT 1
+  Rendered layouts/_header.html.erb (1.4ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 166ms (Views: 157.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /application.css - 304 Not Modified (8ms)
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /sessions.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /users.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /custom.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap-transition.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap-alert.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap-button.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap-carousel.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap-collapse.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap-dropdown.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap-modal.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap-scrollspy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap-tab.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap-popover.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap-tooltip.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap-typeahead.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /sessions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:20 -0400
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ub444FGwHXbFH6xT5mQOM99n+b2/z9itrfJvakkmGQQ=", "user"=>{"name"=>"testy testy", "email"=>"testy@testy.testy", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create my account"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."remember_token" = 'hil4bvkzuxaCbY-1InpC9g' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('testy@testy.testy') LIMIT 1[0m
+  [1m[35mSQL (2.0ms)[0m  INSERT INTO "users" ("admin", "created_at", "email", "name", "password_digest", "remember_token", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["admin", false], ["created_at", Mon, 02 Jul 2012 22:01:40 UTC +00:00], ["email", "testy@testy.testy"], ["name", "testy testy"], ["password_digest", "$2a$10$sDtE134iZXGhNhh22uBc3eErSMt4xoqglziWIdYB1Hje7QZOhr6Fq"], ["remember_token", "wjXvocLjJ11ghL_sImzBvA"], ["updated_at", Mon, 02 Jul 2012 22:01:40 UTC +00:00]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 108ms (ActiveRecord: 3.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Processing by StaticPagesController#home as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" WHERE "users"."remember_token" = 'wjXvocLjJ11ghL_sImzBvA' LIMIT 1
+  Rendered shared/_feed.html.erb (0.0ms)
+  Rendered shared/_home_logged_in.html.erb (2.0ms)
+  Rendered static_pages/home.html.erb within layouts/application (4.3ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.5ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 49ms (Views: 48.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /application.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /users.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /sessions.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /static_pages.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /custom.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap-transition.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap-alert.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap-button.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap-carousel.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap-collapse.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap-dropdown.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap-modal.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap-scrollspy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap-tab.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap-tooltip.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap-popover.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap-typeahead.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /sessions.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:40 -0400
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."remember_token" = 'wjXvocLjJ11ghL_sImzBvA' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "users" 
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" LIMIT 30 OFFSET 0[0m
+  Rendered users/_user.html.erb (10.2ms)
+  Rendered users/index.html.erb within layouts/application (18.1ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.4ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 62ms (Views: 59.0ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /application.css - 304 Not Modified (4ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /custom.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /sessions.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /users.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap-transition.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap-alert.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap-button.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap-carousel.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap-dropdown.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap-collapse.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap-modal.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap-scrollspy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap-tab.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap-tooltip.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap-popover.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap-typeahead.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /sessions.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:44 -0400
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Processing by StaticPagesController#home as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."remember_token" = 'wjXvocLjJ11ghL_sImzBvA' LIMIT 1
+  Rendered shared/_feed.html.erb (0.0ms)
+  Rendered shared/_home_logged_in.html.erb (1.2ms)
+  Rendered static_pages/home.html.erb within layouts/application (2.9ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.2ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 19ms (Views: 18.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /application.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /sessions.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /custom.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /static_pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /users.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap-transition.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap-alert.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap-button.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap-carousel.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap-collapse.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap-dropdown.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap-modal.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap-scrollspy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap-tab.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap-tooltip.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap-popover.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap-typeahead.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /bootstrap.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /sessions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /static_pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-02 18:01:47 -0400
+Served asset /application.js - 304 Not Modified (1ms)
+Connecting to database specified by database.yml
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20120622231924)
+Migrating to AddIndexToUsersEmail (20120623021701)
+Migrating to AddPasswordDigestToUsers (20120623023910)
+Migrating to AddRememberTokenToUsers (20120624042625)
+Migrating to AddAdminToUsers (20120625223633)
+Migrating to CreateTopics (20120702210956)
+  [1m[35m (0.4ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36mPK and serial sequence (2.6ms)[0m  [1m SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"topics"'::regclass
+[0m
+  [1m[35m (2.0ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'topics'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mColumns for index index_topics_on_title on topics (0.4ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 17225
+ AND a.attnum IN (2)
+[0m
+  [1m[35mPK and serial sequence (1.6ms)[0m   SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"users"'::regclass
+
+  [1m[36m (1.1ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index index_users_on_email on users (0.3ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 17237
+ AND a.attnum IN (3)
+
+  [1m[36mColumns for index index_users_on_remember_token on users (0.3ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 17237
+ AND a.attnum IN (7)
+[0m
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (821.1ms)[0m  DROP DATABASE IF EXISTS "atp_fresh_test"
+  [1m[36m (251.3ms)[0m  [1mCREATE DATABASE "atp_fresh_test" ENCODING = 'utf8'[0m
+  [1m[35m (7.0ms)[0m  CREATE TABLE "topics" ("id" serial primary key, "title" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (2.4ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'topics'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (1.0ms)[0m  CREATE INDEX "index_topics_on_title" ON "topics" ("title")
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(255), "email" character varying(255), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "password_digest" character varying(255), "remember_token" character varying(255), "admin" boolean DEFAULT 'f') [0m
+  [1m[35m (1.2ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.1ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.9ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mColumns for index index_users_on_email on users (0.8ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 17271
+ AND a.attnum IN (3)
+[0m
+  [1m[35m (1.0ms)[0m  CREATE INDEX "index_users_on_remember_token" ON "users" ("remember_token")
+  [1m[36m (0.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (0.8ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120702210956')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120622231924')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120623021701')[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120623023910')
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20120624042625')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20120625223633')
