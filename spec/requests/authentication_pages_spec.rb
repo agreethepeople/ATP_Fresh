@@ -38,7 +38,7 @@ describe "Authentication" do
       it { should have_content(user.name) }
       it { should be_logged_in }
       it { should_not be_logged_out }
-      it { should have_content("All the Issues!")}
+      it { should have_content("Top 5 Issues!")}
 
       describe "redirect from unnecessary actions" do
         describe "new or create action" do

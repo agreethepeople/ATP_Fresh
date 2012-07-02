@@ -1,0 +1,58 @@
+<% provide(:title, 'All Topics') %>
+
+
+  <div class="row">
+    <aside class="span3">
+      <section>
+      		<% if signed_in? %>
+	            <a href="<%= user_path(current_user) %>">
+	              <%= gravatar_for current_user, size: 52 %>
+	            </a>
+	            <h1>
+	              <%= current_user.name %>
+	            </h1>
+	            </span>
+	              <%= link_to "view my profile", current_user %>
+	            </span>
+	        <% else %>
+	        	yo you should totally get in on this
+	        	<%= link_to "Sign up", signup_path, class: "btn btn-large btn-primary" %>
+	        <% end %>
+      </section>
+      <section>
+            this is just a line of filler
+      </section>
+      <section>
+            this is another line of filler
+      </section>
+    </aside>
+
+
+
+
+    <div class="span9">
+		<h1>All Sitewide Topics</h1>
+		
+		<%= will_paginate %>
+
+		<ul class="topics">
+			<%= render @topics %>
+		</ul>
+
+		<%= will_paginate %>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+

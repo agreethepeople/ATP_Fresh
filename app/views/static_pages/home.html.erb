@@ -1,10 +1,48 @@
-<% if signed_in? %>
 
-  <%= render 'shared/home_logged_in' %>
+<div class="row">
+    <aside class="span3">
+      <section>
 
-<% else %>
 
-  <%= render 'shared/home_not_logged_in' %>
+			<% if signed_in? %>
 
-<% end %> 
+			  <%= render 'shared/home_logged_in' %>
+
+			<% else %>
+
+			  <%= render 'shared/home_not_logged_in' %>
+
+			<% end %> 
+
+
+      </section>
+      <section>
+            this is just a line of filler
+      </section>
+      <section>
+            this is another line of filler
+      </section>
+    </aside>
+
+
+
+
+    <div class="span9">
+      <div class="hero-unit">
+        <h1>Agree the People</h1> <br><br>
+    	<h2>
+    		<%= link_to 'See all of the issues', all_path, class: 'btn btn-large btn-primary' %>
+    		<br><br>
+    		Top 5 Issues! 
+    	</h2>
+    	<%= render 'shared/feed' %>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 

@@ -20,5 +20,9 @@ FactoryGirl.define do
     
   end
 
+  factory :topic do
+    sequence(:title)  { |n| "TITLE number #{n}" }
+  end
+
 end
 

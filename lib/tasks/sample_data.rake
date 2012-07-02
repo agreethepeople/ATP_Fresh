@@ -29,7 +29,7 @@ end
 
 def make_topics
 	50.times do
-		title = Faker::Lorem.sentence(5)
+		title = Faker::Lorem.sentence(3)
 		Topic.create!(title: title)
 	end
 end

@@ -14,7 +14,6 @@ gem 'pg', '0.13.2'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
-	#gem 'sqlite3', '1.3.5'
 	gem 'rspec-rails', '2.10.0'
 	gem 'annotate', '~> 2.4.1.beta'
 end
@@ -36,6 +35,3 @@ group :test do
 	gem 'database_cleaner', '0.7.0'
 end
 
-group :production do
-	#gem 'pg', '0.12.2'
-end
