@@ -1,4 +1,4 @@
-SampleApp::Application.configure do
+ATPFresh::Application.configure do
   
 
   # Speed up tests by lowering BCrypt's cost function.
