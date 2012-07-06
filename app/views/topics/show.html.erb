@@ -33,11 +33,22 @@
     <div class="span9">
       <div class="hero-unit">
         <h1><%= @topic.title %></h1> <br><br>
-    		<h3><%= @agreement.user.name %><h3><br>
-        <h2><%= @agreement.content %></h2>
-        here will be buttons for all the possible votes using something like @vote
+        <% if @topic.agreements.count > 0 %>
+      		<h3><%= @agreement.user.name %><h3><br>
+          <h2><%= @agreement.content %></h2>
+          here will be buttons for all the possible votes using something like @vote
+        <% end %>
+      </div>
+
+      <% if signed_in? %>
+
+        <%= render 'shared/post_agreement' %>
+
+      <% end %>
+
+
+
     </div>
-  </div>
 </div>
 
 

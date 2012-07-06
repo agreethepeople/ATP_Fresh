@@ -1,0 +1,9 @@
+<ul class="agreements">
+	<% @authored_agreements.each do |agree| %>
+		<li>
+			<%= agree.content %>
+			<br>
+		</li>
+
+	<% end %>
+</ul>

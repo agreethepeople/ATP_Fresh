@@ -3,17 +3,14 @@ include ActionView::Helpers::TextHelper
 
 class TopicsController < ApplicationController
 	def index
+		#all the topics
     	@topics = Topic.paginate(page: params[:page])
   	end
 
-	def hot
-		#@topics = User.find(params[:id])
-	end
-
-
   	def show
+  		#one topic main page
 		@topic = Topic.find(params[:id])
-		@agreement = GiveMeAnAgreementFor(@topic)
+		@agreement = GiveMeAnAgreementFor(@topic) unless @topic.agreements.count==0
   	end
 
 

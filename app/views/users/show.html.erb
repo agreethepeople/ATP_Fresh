@@ -1,6 +1,6 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="span4">
+  <aside class="span3">
     <section>
       <h1>
         <%= gravatar_for(@user, size: 100) %>
@@ -8,4 +8,14 @@
       </h1>
     </section>
   </aside>
+
+  	<div class="span9">
+		<h1>What I wrote </h1>
+
+			<%= render 'users/authored_agreements' %>
+
+		<p><h1>What I voted on</h1></p>
+	</div>
+
+
 </div>

@@ -1,14 +1,15 @@
 class StaticPagesController < ApplicationController
-  def home
-  end
+  	def home
+		@topics = Topic.find(:all, :limit => 5)
+	end
 
-  def help
-  end
+	def help
+	end
 
-  def about
-  end
-  
-  def contact
-  end
+	def about
+	end
+
+	def contact
+	end
   
 end

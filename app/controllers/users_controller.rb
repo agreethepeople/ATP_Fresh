@@ -7,16 +7,21 @@ class UsersController < ApplicationController
   before_filter :admin_user, only: :destroy
   before_filter :not_signed_in, only: [:new, :create]
 
+
+  def show
+   @user = User.find(params[:id])
+   #find all of these
+   @authored_agreements = Agreement.find(:all, :conditions => "user_id = '#{@user.id}'")
+   #_by_user_id(@user.id)
+   #@agreed_agreements = ...
+  end
+
   def index
     @users = User.paginate(page: params[:page])
   end
 
   def new
   	@user = User.new
-  end
-
-  def show
-	 @user = User.find(params[:id])
   end
 
   def create

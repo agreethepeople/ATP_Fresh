@@ -3,6 +3,12 @@ ATPFresh::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :topics, only: [:index, :show]
+  #resources :agreements, only: [:create]
+
+  resources :topics do
+    resources :agreements, only: [:create]
+  end
+
 
   root to: 'static_pages#home'
   
@@ -15,6 +21,8 @@ ATPFresh::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
 
   match '/all', to: 'topics#index', via: :get
+  match '/agreements', to: 'agreements#create', via: :post #gets immediately redirected back to topic
+
 
 
   # The priority is based upon order of creation:
