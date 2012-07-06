@@ -3,6 +3,7 @@ namespace :db do
 	task populate: :environment do
 		make_users
 		make_topics
+		make_agreements
 	end
 end
 
@@ -33,3 +34,17 @@ def make_topics
 		Topic.create!(title: title)
 	end
 end
+
+
+def make_agreements
+	users = User.all(limit: 5)
+	topics = Topic.all
+	users.each { |user| 
+		topics.each { |topic| 
+			content = Faker::Lorem.sentence(7)
+			Agreement.create!(content: content, topic_id: topic.id, user_id: user.id)
+		}
+	}
+end
+
+

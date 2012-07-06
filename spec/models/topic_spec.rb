@@ -3,11 +3,12 @@ require 'spec_helper'
 describe Topic do
   
 	before do
-		#let(:topic) { FactoryGirl.create(:topic) }
-		@topic = Topic.new(title: "Twilight Heroes")
+		#@topic = Topic.new(title: "Twilight Heroes")
 	end
 	
-	subject { @topic }
+	let(:topic) { FactoryGirl.create(:topic) }
+
+	subject { topic }
 
 	it { should be_valid }
 	it { should respond_to(:title) }

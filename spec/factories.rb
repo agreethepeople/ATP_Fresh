@@ -17,12 +17,19 @@ FactoryGirl.define do
     factory :admin do
     	admin true
     end
-    
+
   end
 
   factory :topic do
     sequence(:title)  { |n| "TITLE number #{n}" }
   end
+
+
+  factory :agreement do
+    # need to pass this a user and a topic object
+    sequence(:content)  { |n| "Luv 4 Edward Cullen times #{n}" }
+  end
+
 
 end
 
