@@ -1,5 +1,5 @@
 class AgreementsController < ApplicationController
-	before_filter :signed_in_user, only: [:create]
+	before_filter :signed_in_user, only: [:create, :vote]
 
 	def create
 		@agreement = Agreement.create(params[:agreement])

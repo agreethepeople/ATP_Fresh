@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
 
   has_many :agreements
 
+  acts_as_voter
+
   has_secure_password
   before_save { self.email.downcase! }
 

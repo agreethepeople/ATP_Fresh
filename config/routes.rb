@@ -1,5 +1,7 @@
 ATPFresh::Application.routes.draw do
 
+  get "vote/new"
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :topics, only: [:index, :show]
@@ -8,6 +10,9 @@ ATPFresh::Application.routes.draw do
   resources :topics do
     resources :agreements, only: [:create]
   end
+
+  resources :votes, only: [:create]
+
 
 
   root to: 'static_pages#home'
@@ -22,7 +27,7 @@ ATPFresh::Application.routes.draw do
 
   match '/all', to: 'topics#index', via: :get
   match '/agreements', to: 'agreements#create', via: :post #gets immediately redirected back to topic
-
+  match '/voting', to: 'votes#create'  #replace this with a form and javascript
 
 
   # The priority is based upon order of creation:

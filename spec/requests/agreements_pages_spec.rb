@@ -18,7 +18,7 @@ describe "Full Agreement Workflow" do
 	subject { page }
 
 	describe "valid log in" do
-		before { valid_signin(user) }
+		  before { valid_signin(user) }
     	it { should be_logged_in }
 
     	describe "go to all issues page" do
@@ -26,8 +26,8 @@ describe "Full Agreement Workflow" do
     			click_link "See all of the issues"
     		end
     		it { should have_content "All Sitewide Topics" }
-			it { should be_logged_in }
-        	it { should have_content(topic.title) }
+			  it { should be_logged_in }
+        it { should have_content(topic.title) }
 
         	describe "open up the issue" do
         		before do
@@ -57,7 +57,7 @@ describe "Full Agreement Workflow" do
 
       			end
         	end
-		end
+		  end
     end
 end
 

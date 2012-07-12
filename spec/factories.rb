@@ -24,10 +24,16 @@ FactoryGirl.define do
     sequence(:title)  { |n| "TITLE number #{n}" }
   end
 
-
   factory :agreement do
     # need to pass this a user and a topic object
-    sequence(:content)  { |n| "Luv 4 Edward Cullen times #{n}" }
+    sequence(:content)  { |n| "Luv 4 Edward Cullen times" }
+  end
+
+  factory :vote do
+    # need to pass this a user and a topic object
+    vote true
+    value 10
+    tweeted 0
   end
 
 

@@ -4,6 +4,7 @@ namespace :db do
 		make_users
 		make_topics
 		make_agreements
+		make_votes
 	end
 end
 
@@ -15,7 +16,7 @@ def make_users
 		password_confirmation: "foobar")
 	admin.toggle!(:admin)
 	
-	99.times do |n|
+	10.times do |n|
 		name = Faker::Name.name
 		email = "example-#{n+1}@example.com"
 		password = "password"
@@ -29,7 +30,7 @@ end
 
 
 def make_topics
-	50.times do
+	10.times do
 		title = Faker::Lorem.sentence(3)
 		Topic.create!(title: title)
 	end
@@ -47,4 +48,14 @@ def make_agreements
 	}
 end
 
+
+def make_votes
+	users = User.all(limit:5)
+	agreements = Agreement.all(limit:20)
+	users.each { |user|
+		agreements.each { |agreement|
+			Vote.create!(:vote => :up, :voteable => agreement, :voter => user, :value => 10)
+		}
+	}
+end
 

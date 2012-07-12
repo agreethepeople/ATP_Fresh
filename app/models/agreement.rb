@@ -2,6 +2,7 @@ class Agreement < ActiveRecord::Base
   attr_accessible :content, :topic_id, :user_id
   #i'm pretty sure these need to be protected somehow
 
+  acts_as_voteable
 
   belongs_to :user
   belongs_to :topic

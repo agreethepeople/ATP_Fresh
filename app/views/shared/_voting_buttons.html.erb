@@ -1,0 +1,18 @@
+
+		
+	<%= form_for :votes, url: voting_path do |f| %>
+		<div><%= f.hidden_field :voter_id, value: @user.id%></div>
+		<div><%= f.hidden_field :voteable_id, value: @agreement.id %></div>
+		<div class="btn-group">
+			<%= f.submit "Low", class: "btn btn-large", id: 'Low' %>
+			<%= f.submit "Medium", class: "btn btn-large", id: 'Medium' %>
+			<%= f.submit "High", class: "btn btn-large", id: 'High' %>
+		</div>
+		<br><br>
+		<div class="btn-group">
+			<%= f.submit "Skip", class: "btn btn-large", id: 'Skip' %>
+			<%= f.submit "Disagree", class: "btn btn-large", id: 'Disagree' %>
+		</div>
+	<% end %>
+
+

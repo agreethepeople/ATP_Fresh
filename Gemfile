@@ -9,6 +9,8 @@ gem 'bootstrap-will_paginate', '0.0.6'
 
 gem 'pg', '0.13.2'
 
+gem 'thumbs_up', :git => "git://github.com/xgess/thumbs_up.git"
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
