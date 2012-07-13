@@ -1,6 +1,6 @@
 
 		
-	<%= form_for :votes, url: voting_path do |f| %>
+	<%= form_for(:votes, url: voting_path, remote: true) do |f| %>
 		<div><%= f.hidden_field :voter_id, value: @user.id%></div>
 		<div><%= f.hidden_field :voteable_id, value: @agreement.id %></div>
 		<div class="btn-group">

@@ -33,14 +33,24 @@
     <div class="span9">
 
 
-      <%= render 'shared/agreement_box' %>
+        <h1><%= @topic.title %></h1>
+
+      <div class="hero-unit">
+        <% if @topic.agreements.count > 0 %>
+
+          <div id="agreement_content"><%= render 'shared/agreement_box' %></div>
+          <%= render 'shared/voting_buttons' %> 
+
+        <% end %>
+
+
+      </div>
+
+
 
 
       <% if signed_in? %>
-      
-      <%= render 'shared/post_agreement' %>
-
-
+          <%= render 'shared/post_agreement' %>
       <% end %>
 
     </div>

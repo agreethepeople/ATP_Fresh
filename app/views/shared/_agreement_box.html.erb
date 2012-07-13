@@ -1,12 +1,4 @@
-      <div class="hero-unit">
-        <h1><%= @topic.title %></h1> <br><br>
-        <% if @topic.agreements.count > 0 %>
-      		<h3><%= @agreement.user.name %><h3><br>
-          <h2><%= @agreement.content %></h2>
+		<div id="new_agreement"></div>
+        <h3><%= @agreement.user.name %></h3><br>
+        <h2><%= @agreement.content %></h2>
 
-        	<%= render 'shared/voting_buttons' %> 
-
-        <% end %>
-
-
-      </div>

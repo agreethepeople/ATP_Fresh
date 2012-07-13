@@ -30,6 +30,12 @@ ATPFresh::Application.routes.draw do
   match '/voting', to: 'votes#create'  #replace this with a form and javascript
 
 
+  # match ':title', to: 'topic#show' 
+  # .gsub(/ /, '_').gsub(/\./,'')
+
+
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
