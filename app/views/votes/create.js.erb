@@ -1,2 +1,10 @@
-$("#new_agreement").html("<%= @agreement = generate_agreement_for %>")
+$("#new_agreement").html("<% @agreement = generate_agreement_for %>")
+//$("#agreement_content").html("<%= j render :partial => 'shared/agreement_box' %>")
 $("#agreement_content").html("<%= escape_javascript(render('shared/agreement_box')) %>")
+
+
+//$("#new_agreement2").html("WORKING")
+//$("#new_agreement3").html("<%= @agreement.content %>")
+// $("#new_agreement").html("<% @agreement = generate_agreement_for %>")
+// $("#agreement_content").html("<%= escape_javascript(render('shared/agreement_box')) %>")
+// $("#agreement_content").html("<%= escape_javascript(render('shared/agreement_box')) %>")

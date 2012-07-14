@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe "Full Voting Workflow" do
 
-  let(:topic) { FactoryGirl.create(:topic, title: "Edward v. Jacob") }
+  let(:topic) { FactoryGirl.create(:topic, title: "Edward v. Jacob", slug: 'edward-v-jacob') }
   let(:writer1) { FactoryGirl.create(:user, name: "Martin Van Buren") }
   let!(:writer2) { FactoryGirl.create(:user, name: "William Henry Harrison") }
 

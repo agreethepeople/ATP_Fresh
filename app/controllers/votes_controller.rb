@@ -1,19 +1,32 @@
 class VotesController < ApplicationController
-	before_filter :signed_in_user
+	#before_filter :signed_in_user
 
 	respond_to :html, :js
 
 	def create
-		@agreement = Agreement.find(params[:votes][:voteable_id])
-		@user = User.find(params[:votes][:voter_id])
-		value = params[:votes][:commit].to_s.downcase.to_sym
-		@topic = @agreement.topic
-		if value == :against 
-			@user.vote_exclusively_against(@agreement)
-		else
-			@user.vote_exclusively_for(@agreement, :value)
+		@vote_agreement = Agreement.find(params[:votes][:voteable_id])
+		@topic = @vote_agreement.topic
+
+		if signed_in?
+			@vote_user = User.find(params[:votes][:voter_id])
+			value = params[:votes][:commit].to_s.downcase.to_sym
+			if value == :against 
+				@vote_user.vote_exclusively_against(@vote_agreement)
+			else
+				@vote_user.vote_exclusively_for(@vote_agreement, :value)
+			end
 		end
-		respond_with @topic
+		respond_to do |format|
+		  format.html { redirect_to mainpage_path(@topic.slug) }
+		  format.js
+		end
+		#respond_with mainpage_path(@topic.slug)
+		#respond_with(mainpage_path(@vote_agreement.topic.slug))
+		#respond_with(@agreement)
+		#respond_with(@topic.slug)
+		#redirect_to mainpage_path(@topic.slug)
+		#respond_with(mainpage_path(@topic.slug))
+		#respond_with(@topic.slug, location: mainpage_path)
 	end
 
 end

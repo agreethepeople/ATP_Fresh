@@ -16,7 +16,7 @@ def make_users
 		password_confirmation: "foobar")
 	admin.toggle!(:admin)
 	
-	10.times do |n|
+	20.times do |n|
 		name = Faker::Name.name
 		email = "example-#{n+1}@example.com"
 		password = "password"
@@ -30,15 +30,16 @@ end
 
 
 def make_topics
-	10.times do
+	20.times do
 		title = Faker::Lorem.sentence(3)
-		Topic.create!(title: title)
+		slug = title.gsub(/ /, '-').gsub(/\./,'').downcase
+		Topic.create!(title: title, slug: slug)
 	end
 end
 
 
 def make_agreements
-	users = User.all(limit: 5)
+	users = User.all(limit: 15)
 	topics = Topic.all
 	users.each { |user| 
 		topics.each { |topic| 

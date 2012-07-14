@@ -1,5 +1,5 @@
 class AgreementsController < ApplicationController
-	before_filter :signed_in_user, only: [:create, :vote]
+	before_filter :signed_in_user, only: [:create]
 
 	def create
 		@agreement = Agreement.create(params[:agreement])
@@ -8,7 +8,7 @@ class AgreementsController < ApplicationController
 		else
         	flash[:failure] = "Agreement not created."
 		end
-		redirect_to @agreement.topic
+		redirect_to mainpage_path(@agreement.topic.slug)
 	end
 
 end

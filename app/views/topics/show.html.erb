@@ -37,7 +37,7 @@
 
       <div class="hero-unit">
         <% if @topic.agreements.count > 0 %>
-
+          <div id="new_agreement"></div>
           <div id="agreement_content"><%= render 'shared/agreement_box' %></div>
           <%= render 'shared/voting_buttons' %> 
 
@@ -51,6 +51,8 @@
 
       <% if signed_in? %>
           <%= render 'shared/post_agreement' %>
+      <% else %>
+          Sign in to post your own agreements!
       <% end %>
 
     </div>

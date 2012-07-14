@@ -16,10 +16,10 @@ describe Topic do
 	describe "make topic with FactoryGirl" do
 		
 		let!(:old_topic) do
-			FactoryGirl.create(:topic, title:'TITLE OLD', created_at: 1.day.ago)
+			FactoryGirl.create(:topic, title:'TITLE OLD', slug: 'title-old', created_at: 1.day.ago)
 		end
 		let!(:new_topic) do
-			FactoryGirl.create(:topic, title:'NEW TOPIC', created_at: 1.hour.ago)
+			FactoryGirl.create(:topic, title:'NEW TOPIC', slug: 'new-title', created_at: 1.hour.ago)
 		end
 
 		#### there should be a SHOULD statement in here

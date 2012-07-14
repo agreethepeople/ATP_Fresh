@@ -12,8 +12,9 @@ require 'spec_helper'
 describe "Full Agreement Workflow" do
 
 	let!(:user) { FactoryGirl.create(:user) }
-	let!(:topic) { FactoryGirl.create(:topic, title: "Edward v. Jacob") }
-	let!(:agreement) { FactoryGirl.create(:agreement, user: user, topic: topic) }
+	let!(:topic) { FactoryGirl.create(:topic, title: "Edward v. Jacob", slug: "edward-v-jacob") }
+	let!(:agreement1) { FactoryGirl.create(:agreement, user: user, topic: topic) }
+  let!(:agreement2) { FactoryGirl.create(:agreement, user: user, topic: topic) }
 
 	subject { page }
 
@@ -36,6 +37,11 @@ describe "Full Agreement Workflow" do
         		it { should have_content(topic.title) }
         		it { should have_content("Agreements") }
         		it { should be_logged_in }
+
+            it "should have 2 agreements right here" do
+              topic.agreements.count == 2
+            end
+
 
         		describe "Add an agreement" do
         			before do

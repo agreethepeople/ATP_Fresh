@@ -22,6 +22,7 @@ FactoryGirl.define do
 
   factory :topic do
     sequence(:title)  { |n| "TITLE number #{n}" }
+    sequence(:slug) { |n| "title-number-#{n}" }
   end
 
   factory :agreement do

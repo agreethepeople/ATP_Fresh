@@ -1,33 +1,72 @@
 ATPFresh::Application.routes.draw do
 
-  get "vote/new"
-
-  resources :users
-  resources :sessions, only: [:new, :create, :destroy]
-  resources :topics, only: [:index, :show]
-  #resources :agreements, only: [:create]
-
-  resources :topics do
-    resources :agreements, only: [:create]
-  end
-
-  resources :votes, only: [:create]
-
-
-
   root to: 'static_pages#home'
   
-  match '/help',    to: 'static_pages#help'
-  match '/about',   to: 'static_pages#about'
-  match '/contact', to: 'static_pages#contact'
+  resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+
 
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  match '/help',    to: 'static_pages#help'
+  match '/about',   to: 'static_pages#about'
+  match '/contact', to: 'static_pages#contact'
 
+
+
+  resources :topics, only: [:index, :show]
   match '/all', to: 'topics#index', via: :get
+  #match "/topics/:id" => redirect("/%{Topic.find(:id).slug}")
+  match '/:slug/analysis' => 'topics#analysis', via: :get, as: "analysis"
+
+  match '/:slug/agreements' => 'topics#agreements', via: :get #build this
+  match '/user/:id/agreements' => 'users#agreements', via: :get #build this
+
+  match '/:slug/agreements/create' => 'agreements#create', via: :post #build this
+#  resources :topics do
+#    resources :agreements, only: [:create]
+#  end
+
   match '/agreements', to: 'agreements#create', via: :post #gets immediately redirected back to topic
+  get "vote/new"
   match '/voting', to: 'votes#create'  #replace this with a form and javascript
+
+
+  match '/:slug' => 'topics#show', as: "mainpage"
+
+
+##################################################
+
+
+  # get "vote/new"
+
+  # resources :users
+  # resources :sessions, only: [:new, :create, :destroy]
+  # resources :topics, only: [:index, :show]
+  # #resources :agreements, only: [:create]
+
+  # resources :topics do
+  #   resources :agreements, only: [:create]
+  # end
+
+  # resources :votes, only: [:create]
+
+
+
+  # root to: 'static_pages#home'
+  
+  # match '/help',    to: 'static_pages#help'
+  # match '/about',   to: 'static_pages#about'
+  # match '/contact', to: 'static_pages#contact'
+
+  # match '/signup', to: 'users#new'
+  # match '/signin', to: 'sessions#new'
+  # match '/signout', to: 'sessions#destroy', via: :delete
+
+  # match '/all', to: 'topics#index', via: :get
+  # match '/agreements', to: 'agreements#create', via: :post #gets immediately redirected back to topic
+  # match '/voting', to: 'votes#create'  #replace this with a form and javascript
 
 
   # match ':title', to: 'topic#show' 
