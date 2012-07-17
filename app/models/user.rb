@@ -12,34 +12,35 @@
 
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation
+  attr_accessible :email, :name, :password, :password_confirmation, :twitter_handle
 
   has_many :agreements
+  has_many :authentications
 
   acts_as_voter
 
-  has_secure_password
+#  has_secure_password
   before_save { self.email.downcase! }
 
 
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, length: { maximum: 50 }#, presence: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, 
+  validates :email, #presence: true, 
   		format: { with: VALID_EMAIL_REGEX }, 
   		uniqueness: { case_sensitive: false }
 
 
-  validates :password, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+#  validates :password, length: { minimum: 6 }
+#  validates :password_confirmation, presence: true
 
 
-  before_save :create_remember_token
+#  before_save :create_remember_token
 
-  private
-    def create_remember_token
-      self.remember_token = SecureRandom.urlsafe_base64
-    end
+  # private
+  #   def create_remember_token
+  #     self.remember_token = SecureRandom.urlsafe_base64
+  #   end
 
 
 end

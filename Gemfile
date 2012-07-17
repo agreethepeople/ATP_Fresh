@@ -12,6 +12,11 @@ gem 'pg', '0.13.2'
 gem 'thumbs_up', :git => "git://github.com/xgess/thumbs_up.git"
 
 
+#gem 'devise'
+gem 'omniauth-twitter'
+gem 'twitter'
+
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

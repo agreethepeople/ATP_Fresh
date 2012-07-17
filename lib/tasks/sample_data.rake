@@ -12,18 +12,16 @@ end
 def make_users
 	admin = User.create!(name: "Alex Gessner",
 		email: "alex.gessner@gmail.com",
-		password: "foobar",
-		password_confirmation: "foobar")
+		twitter_handle: "xgess")
 	admin.toggle!(:admin)
 	
 	20.times do |n|
 		name = Faker::Name.name
 		email = "example-#{n+1}@example.com"
-		password = "password"
+		twitter_handle = name.gsub(/ /, '-').downcase
 		User.create!(name: name, 
 					email: email,
-					password: password,
-					password_confirmation: password)
+					twitter_handle: twitter_handle)
 	end
 end
 

@@ -1,5 +1,5 @@
 class CreateTopics < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :topics do |t|
       t.text :title
 
@@ -7,5 +7,9 @@ class CreateTopics < ActiveRecord::Migration
     end
 
     add_index :topics, [:title]
+  end
+
+  def self.down
+  	drop_table :topics
   end
 end

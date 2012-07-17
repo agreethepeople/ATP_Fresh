@@ -2,13 +2,18 @@ ATPFresh::Application.routes.draw do
 
   root to: 'static_pages#home'
   
+#  redirect '/signin', to: '/auth/twitter'
+#  redirect '/auth/twitter/callback', to: '/'
+  match '/auth/:provider/callback' => 'authentications#create'
+  match '/signin', to: 'authentications#new'
+  match '/signout', to: 'authentications#destroy', via: :delete
+  match '/signup', to: 'authentications#new'
+  resources :authentications, only: [:new, :create, :destroy]
+
+
+
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
 
-
-  match '/signup', to: 'users#new'
-  match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
@@ -24,9 +29,7 @@ ATPFresh::Application.routes.draw do
   match '/user/:id/agreements' => 'users#agreements', via: :get #build this
 
   match '/:slug/agreements/create' => 'agreements#create', via: :post #build this
-#  resources :topics do
-#    resources :agreements, only: [:create]
-#  end
+
 
   match '/agreements', to: 'agreements#create', via: :post #gets immediately redirected back to topic
   get "vote/new"
