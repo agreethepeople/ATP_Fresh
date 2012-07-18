@@ -1,3 +1,4 @@
+#require 'ruby-bitly'
 
 module TopicsHelper
 

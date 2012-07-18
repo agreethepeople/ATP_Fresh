@@ -1,6 +1,12 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.6'
+
+
+gem "ruby-bitly"
+
+
+
 gem 'bootstrap-sass', '2.0.0'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.0.1' #for adding fake users
@@ -10,6 +16,8 @@ gem 'bootstrap-will_paginate', '0.0.6'
 gem 'pg', '0.13.2'
 
 gem 'thumbs_up', :git => "git://github.com/xgess/thumbs_up.git"
+
+
 
 
 #gem 'devise'

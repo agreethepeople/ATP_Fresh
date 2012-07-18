@@ -2,6 +2,7 @@
 <% string_to_tweet = string_to_tweet.slice(0..118) + "..." if string_to_tweet.length > 122 %>
 <% string_to_tweet = '"'+string_to_tweet + '" http://agrtp.co'%>
 
+
 <a href="https://twitter.com/share" class="twitter-share-button" 
     data-lang="en" data-size="large" data-count="none" 
     data-text="<%=string_to_tweet%>">
@@ -17,3 +18,5 @@
 		twttr.widgets.load();
 	});
 </script>
+
+

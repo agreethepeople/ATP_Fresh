@@ -1,5 +1,6 @@
 include ActionView::Helpers::TextHelper
 include TopicsHelper
+#require 'ruby-bitly'
 
 class TopicsController < ApplicationController
 
