@@ -16,7 +16,7 @@ module ApplicationHelper
 		user = "agrtpco"
 		apikey = "R_511f8477afc56626f21dc59502a68cd3"
 
-		longlink = "http://#{request.host}:#{request.port.to_s + request.fullpath}"
+		longlink = "http://#{request.host}:#{request.port.to_s}"
 		longlink = longlink + agreement.topic.slug + "/?agreement=" + agreement.id.to_s
 		#longlink = "http://www.dailymotion.com/video/xsdji_rick-astley-never-gonna-give-you-up_music"
 		shorturl = Bitly.shorten(longlink, user, apikey) if Rails.env.production?
