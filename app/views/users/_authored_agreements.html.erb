@@ -1,7 +1,7 @@
 <ul class="agreements">
 	<% @authored_agreements.each do |agree| %>
 		<li>
-			<%= agree.content %>
+			<%= link_to agree.content, "/#{agree.topic.slug}?agreement=#{agree.id}" %>
 			<br>
 		</li>
 

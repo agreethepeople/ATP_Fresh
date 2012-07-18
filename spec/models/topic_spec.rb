@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe Topic do
   
-	before do
-		#@topic = Topic.new(title: "Twilight Heroes")
-	end
-	
+
 	let(:topic) { FactoryGirl.create(:topic) }
 
 	subject { topic }

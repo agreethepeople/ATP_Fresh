@@ -9,4 +9,9 @@ class Topic < ActiveRecord::Base
   has_many :agreements, dependent: :destroy
 
 
+	def self.all_of_interest_to(user)
+		interested_topics = "SELECT id FROM topics WHERE id IN ( SELECT topic_id FROM agreements WHERE id  IN ( SELECT voteable_id FROM votes WHERE voter_id = :user_id))"
+		where("id IN (#{interested_topics})", user_id: user)
+	end
+
 end

@@ -1,3 +1,8 @@
-        <h3><div id="new_agreement2"><%= @agreement.user.name %></div></h3><br>
+        <h3><div id="new_agreement2">
+        <% if @agreement.user.nil? %>
+        	That Author was removed for some reason.
+        <% else %>
+        	<%= @agreement.user.name %>
+        <% end %>
+    	</div></h3><br>
         <h2><div id="new_agreement3"><%= @agreement.content %></div></h2>
-

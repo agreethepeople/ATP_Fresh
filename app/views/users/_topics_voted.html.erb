@@ -1,0 +1,9 @@
+<ul class="agreements">
+	<% @important_topics.each do |topic| %>
+		<li>
+			<% @this_topic = topic %>
+			<h2><%= link_to topic.title, mainpage_path(topic.slug) %></h2>
+			    <%= render 'users/voted_agreements' %>
+		</li>
+	<% end %>
+</ul>

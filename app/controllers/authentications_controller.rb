@@ -19,14 +19,14 @@ class AuthenticationsController < ApplicationController
 		user.name = auth['info']['name']
 			#update anything else the user may have changed on their twitter profile
 			#maybe picture? whatevs
-		
 		user.authentications.find_or_create_by_provider_and_uid(auth['provider'], auth['uid'])
+		user.email = "replace-me-please@example.com" if !user.valid?
 		user.save!
 		flash[:success] = "Welcome, #{user.twitter_handle}."
-		@current_user = user
-		session[:user_id] = user.id
+		#@current_user = user
+		#session[:user_id] = user.id
 		sign_in(user)
-		current_user= user
+		#current_user= user
 		redirect_to root_path
 	end
 

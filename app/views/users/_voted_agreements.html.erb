@@ -1,0 +1,10 @@
+<ul class="agreements">
+	<% @voted_agreements["#{@this_topic.slug}"].each do |agree| %>
+		<li>
+			<%= agree.id %>
+			<%= link_to agree.content, "/#{agree.topic.slug}?agreement=#{agree.id}" %>
+			<br>
+		</li>
+
+	<% end %>
+</ul>

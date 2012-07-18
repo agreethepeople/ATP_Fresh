@@ -2,7 +2,7 @@
 		
 	<%= form_for(:votes, url: voting_path, remote: true) do |f| %>
 		<% if signed_in? %>
-			<div><%= f.hidden_field :voter_id, value: @user.id %></div>
+			<div><%= f.hidden_field :voter_id, value: current_user.id %></div>
 		<% end %>
 		<div><%= f.hidden_field :voteable_id, value: @agreement.id %></div>
 		<div class="btn-group">

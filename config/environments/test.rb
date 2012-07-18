@@ -8,6 +8,13 @@ ATPFresh::Application.configure do
   end
 
 
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.add_mock(:twitter, {  :provider    => "twitter", 
+                                    :uid         => "12345", 
+                                    :user_info   => {   :name       => "Bob hope",
+                                                        :nickname   => "bobby",
+                                                        :urls       => {:Twitter => "www.twitter.com/bobster"}},
+                                    :credentials => {   :token => "lk2j3lkjasldkjflk3ljsdf"} })
 
 
 

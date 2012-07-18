@@ -2,12 +2,12 @@ module AuthenticationsHelper
 
 	def sign_in(user)
 		session[:user_id]=user.id
-		self.current_user = user
+		current_user=(user)
 	end
 
-	# def newtestsignedinmethod?
-	# 	true
-	# end
+	def is_admin?
+	 	signed_in? ? current_user.admin : false
+	end
 
 	def signed_in?
 		!current_user.nil?
@@ -16,7 +16,7 @@ module AuthenticationsHelper
     def signed_in_user
       unless signed_in?
         store_location
-        redirect_to signin_path#, notice: "Please sign in."
+        redirect_to root_path, notice: "Please sign in."
       end
     end
     
@@ -25,7 +25,6 @@ module AuthenticationsHelper
 	end
 
 	def current_user
-		#User.first
 		@current_user ||= User.find_by_id(session[:user_id])
 	end
 

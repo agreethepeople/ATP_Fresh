@@ -1,6 +1,7 @@
+
 $("#new_agreement").html("<% @agreement = generate_agreement_for %>")
-//$("#agreement_content").html("<%= j render :partial => 'shared/agreement_box' %>")
 $("#agreement_content").html("<%= escape_javascript(render('shared/agreement_box')) %>")
+$("#voting_buttons").html("<%= escape_javascript(render('shared/voting_buttons')) %>")
 
 
 //$("#new_agreement2").html("WORKING")

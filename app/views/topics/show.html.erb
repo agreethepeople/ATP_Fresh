@@ -22,8 +22,8 @@
             this is another line of filler
       </section>
 
-      <h2><p align=right>Agreements > </p></h2>
-      <h2><p align=right>Analysis</p></h2>
+      <h2><p align=right><b><%= link_to "Agreements >", @topic.slug %></b></p></h2>
+      <h2><p align=right><b><%= link_to "Analysis", analysis_path(@topic.slug) %></b></p></h2>
 
     </aside>
 
@@ -32,14 +32,14 @@
 
     <div class="span9">
 
-
         <h1><%= @topic.title %></h1>
-
       <div class="hero-unit">
         <% if @topic.agreements.count > 0 %>
           <div id="new_agreement"></div>
           <div id="agreement_content"><%= render 'shared/agreement_box' %></div>
-          <%= render 'shared/voting_buttons' %> 
+          <div id="voting_buttons">
+            <%= render 'shared/voting_buttons' %>
+          </div>
 
         <% end %>
 

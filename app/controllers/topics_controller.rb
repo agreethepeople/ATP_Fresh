@@ -26,7 +26,7 @@ class TopicsController < ApplicationController
   end
 
   def analysis
-    puts "not enough votes yet to show meaningful analysis"
+    @topic = Topic.find_by_slug(params[:slug])
   end
 
   def agreements

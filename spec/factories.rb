@@ -12,8 +12,6 @@ FactoryGirl.define do
     sequence(:name)  { |n| "Person #{n}" }
     sequence(:email) { |n| "person_#{n}@example.com"}
     sequence(:twitter_handle) { |n| "person-#{n}" }
-    password "foobar"
-    password_confirmation "foobar"
 
 
     factory :admin do

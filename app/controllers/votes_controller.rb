@@ -18,7 +18,7 @@ class VotesController < ApplicationController
 		end
 		respond_to do |format|
 		  format.html { redirect_to mainpage_path(@topic.slug) }
-		  format.js
+		  format.js { } 
 		end
 		#respond_with mainpage_path(@topic.slug)
 		#respond_with(mainpage_path(@vote_agreement.topic.slug))

@@ -3,19 +3,23 @@
   <aside class="span3">
     <section>
       <h1>
-        <%= gravatar_for(@user, size: 100) %>
-        <%= @user.name %>
+        <%= gravatar_for(current_user, size: 100) %>
+        <%= current_user.name %>
       </h1>
     </section>
   </aside>
 
   	<div class="span9">
-		<h1>What I wrote </h1>
+      <% if current_user == @user %>
+        <h1>All of my Agreements</h1>
+        <%= render 'users/topics_voted' %>
+      <% else %>
 
-			<%= render 'users/authored_agreements' %>
+        <h1>What <%= @user.twitter_handle %> wrote </h1>
 
-		<p><h1>What I voted on</h1></p>
-	</div>
+			     <%= render 'users/authored_agreements' %>
+      <% end %>
+    </div>
 
 
 </div>
