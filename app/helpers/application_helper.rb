@@ -22,6 +22,7 @@ module ApplicationHelper
 #		shorturl = Bitly.shorten(longlink) if Rails.env.production?
 #		return_this = shorturl.url if Rails.env.production?
 		return_this ||= "http://agrtp.co/MsUNJL"
+		return return_this
 	end
 
 end
