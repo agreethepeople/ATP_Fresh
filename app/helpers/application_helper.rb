@@ -19,8 +19,9 @@ module ApplicationHelper
 		longlink = "http://#{request.host}:#{request.port.to_s + request.fullpath}"
 		longlink = longlink + agreement.topic.slug + "/?agreement=" + agreement.id.to_s
 		longlink = "http://www.dailymotion.com/video/xsdji_rick-astley-never-gonna-give-you-up_music"
-		shorturl = Bitly.shorten(longlink).url if Rails.env.production?
-		shorturl ||= "http://agrtp.co/MsUNJL"
+#		shorturl = Bitly.shorten(longlink) if Rails.env.production?
+#		return_this = shorturl.url if Rails.env.production?
+		return_this ||= "http://agrtp.co/MsUNJL"
 	end
 
 end
