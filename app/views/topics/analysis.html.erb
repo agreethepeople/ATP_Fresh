@@ -1,31 +1,8 @@
 
 <div class="row">
     <aside class="span3">
-      <section>
 
-
-			<% if signed_in? %>
-
-			  <%= render 'shared/home_logged_in' %>
-
-			<% else %>
-
-			  <%= render 'shared/home_not_logged_in' %>
-
-			<% end %> 
-
-
-      </section>
-      <section>
-            this is just a line of filler
-      </section>
-      <section>
-            this is another line of filler
-      </section>
-      <% urlstring = "/#{@topic.slug}" %>
-
-      <h2><p align=right><%= link_to "Agreements", urlstring %></p></h2>
-      <h2><p align=right><%= link_to "Analysis >", analysis_path(@topic.slug) %></p></h2>
+      <%= render 'shared/topic_left_bar' %>
 
     </aside>
 

@@ -1,3 +1,4 @@
+
 module UsersHelper
 
 	def gravatar_for(user, options = { size: 50 })
@@ -8,6 +9,9 @@ module UsersHelper
 	end
 
 
+	def current_vote_for_helper(user, agreement)
+		return user.current_vote_on(agreement)
+	end
 
 
 end

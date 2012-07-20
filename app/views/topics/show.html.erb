@@ -1,32 +1,8 @@
  
-
-
- <div class="row">
+<div class="row">
     <aside class="span3">
-      <section>
 
-
-			<% if signed_in? %>
-
-			  <%= render 'shared/home_logged_in' %>
-
-			<% else %>
-
-			  <%= render 'shared/home_not_logged_in' %>
-
-			<% end %> 
-
-
-      </section>
-      <section>
-            this is just a line of filler
-      </section>
-      <section>
-            this is another line of filler
-      </section>
-
-      <h2><p align=right><b><%= link_to "Agreements >", @topic.slug %></b></p></h2>
-      <h2><p align=right><b><%= link_to "Analysis", analysis_path(@topic.slug) %></b></p></h2>
+      <%= render 'shared/topic_left_bar' %>
 
     </aside>
 
@@ -39,12 +15,13 @@
       <div class="hero-unit">
         <% if @topic.agreements.count > 0 %>
           <div id="new_agreement"></div>
-          <div id="agreement_content"><%= render 'shared/agreement_box' %></div>
+          <div id="agreement_content">
+            <%= render 'shared/agreement_box' %>
+          </div>
           <div id="voting_buttons">
             <%= render 'shared/voting_buttons' %>
           </div>
-            
-            <div id="tweet_button"><%= render 'shared/tweet_button' %></div>
+
 
         <% end %>
 

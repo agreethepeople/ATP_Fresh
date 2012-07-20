@@ -1,4 +1,6 @@
 #require 'ruby-bitly'
+include VotesHelper
+include UsersHelper
 
 module TopicsHelper
 
@@ -20,5 +22,11 @@ module TopicsHelper
 		# end
 		return topic.agreements.sample
 	end
+
+
+	def current_vote_for_helper(user, agreement)
+		return user.current_vote_on(agreement)
+	end
+
 
 end

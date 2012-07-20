@@ -34,8 +34,6 @@ class TopicsController < ApplicationController
     puts "big ol' list of all the agreements"
   end
 
-
-
 end
 
 

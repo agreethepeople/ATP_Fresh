@@ -43,5 +43,52 @@ class User < ActiveRecord::Base
   #   end
 
 
+    def current_vote_on(agreement)
+      return nil unless self.voted_on?(agreement)
+      return "Trivial" if self.voted_low?(agreement)
+      return "Relevant" if self.voted_medium?(agreement)
+      return "Essential" if self.voted_high?(agreement)
+      return "Disagree" if self.voted_against?(agreement)
+      return "Skip" if self.voted_skip?(agreement)
+    end
+
+
+
+     #  def vote_exclusively_for_test(voteable, importance)
+     #    self.vote_test(voteable, { :direction => :up, :exclusive => true, :value => importance })
+     #  end
+
+     #  def vote_exclusively_against_test(voteable, importance=-1)
+     #    self.vote_test(voteable, { :direction => :down, :exclusive => true, :value => -1 })
+     #  end
+
+     #  def unvote_for_test(voteable)
+     #    Vote.where(
+     #      :voter_id => self.id,
+     #      :voter_type => self.class.base_class.name,
+     #      :voteable_id => voteable.id,
+     #      :voteable_type => voteable.class.base_class.name
+     #    ).map(&:destroy)
+     #  end
+
+     # def vote_test(voteable, options = {})
+     #  #       importance=:against
+     #  #  self.vote(voteable, { :direction => :down, :exclusive => true, :value => importance })
+     #  # :exclusive (true),
+     #  # :direction (:up, :down)
+     #  # :value (:high, :medium, :low, :against, :skip)
+     #    raise ArgumentError, "you must specify :up or :down in order to vote" unless options[:direction] && [:up, :down].include?(options[:direction].to_sym)
+     #    raise ArgumentError, "you must specify value vote" unless options[:direction] && [:up, :down].include?(options[:direction].to_sym)
+     #    remember_tweet = self.tweeted?(voteable) #because the unvote will wipe it out
+     #    if options[:exclusive]
+     #      self.unvote_for_test(voteable)
+     #    end
+     #    direction = (options[:direction].to_sym == :up)
+     #    weight = options[:value]
+  
+     #    Vote.create!(:vote => direction, :voteable => voteable, :voter => self, :value => weight, :tweeted => remember_tweet)
+     #  end
+
+
 end
 

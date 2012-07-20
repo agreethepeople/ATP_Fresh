@@ -1,43 +1,30 @@
 <% provide(:title, 'All users') %>
 
-
-
-
 <div class="row">
-  <aside class="span3">
-    <section>
-      <h1>
-        <%= gravatar_for(current_user, size: 100) %>
-        <%= current_user.name %>
-      </h1>
-    </section>
-  </aside>
+    <aside class="span3">
 
-  	<div class="span9">
+      <%= render 'shared/standard_left_bar' %>
 
-		<h1>All users</h1>
+    </aside>
 
-		<%= will_paginate %>
 
-		<ul class="users">
-			<%= render @users %>
-		</ul>
 
-		<%= will_paginate %>
 
-	</div>
+    <div class="span9">
+
+        <h1>All users</h1>
+
+        <%= will_paginate %>
+
+        <ul class="users">
+          <%= render @users %>
+        </ul>
+
+        <%= will_paginate %>
+
+    </div>
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
 
 

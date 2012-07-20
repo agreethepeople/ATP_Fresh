@@ -1,24 +1,9 @@
 <% provide(:title, "Edit user") %>
 
-
- <div class="row">
+<div class="row">
     <aside class="span3">
-      <section>
 
-
-			<% if signed_in? %>
-
-			  <%= render 'shared/home_logged_in' %>
-
-			<% else %>
-
-			  <%= render 'shared/home_not_logged_in' %>
-
-			<% end %> 
-
-
-      </section>
-
+      <%= render 'shared/standard_left_bar' %>
 
     </aside>
 
@@ -38,5 +23,19 @@
 		<%= gravatar_for @user %>
 		<%= link_to "change", "http://gravatar.com/emails", target: "_blank" %>
 	</div>
+
+
+
 </div>
+
+
+
+
+
+
+
+
+
+
+
 

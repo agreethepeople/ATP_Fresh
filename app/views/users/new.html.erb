@@ -1,16 +1,33 @@
-<% provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
-
+<% provide(:title, 'Signup Page') %>
 
 <div class="row">
-	<div class="span6 offset3">
+    <aside class="span3">
+
+      <%= render 'shared/standard_left_bar' %>
+
+    </aside>
+
+
+
+
+THIS PAGE SHOULD NOT SHOW UP
+
+
+
+    <div class="span9">
+
+        <h1>Sign up</h1>
 
 	    <%= form_for(@user) do |f| %>
 	      <%= render 'fields', f: f %>
 	      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
 	    <% end %>
 
-	</div>
+    </div>
+
+
 </div>
+
+
 
 

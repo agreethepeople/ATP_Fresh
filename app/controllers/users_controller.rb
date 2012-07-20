@@ -53,21 +53,6 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  # def new
-  #   @user = User.new
-  # end
-
-  # def create
-  #   @user = User.new(params[:user])
-  #   if @user.save
-  #     sign_in @user
-  #     flash[:success] = "Welcome to Agree the People!"
-  #     redirect_to root_path #load up the root home page
-  #   else
-  #     render 'new' #reloads the signup page to show all the error messages
-  #   end
-  # end
-
   private
     
     def signed_in_user
@@ -89,4 +74,9 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to(root_path) unless current_user.admin?
     end
+
+
+  #private
+
+
 end
