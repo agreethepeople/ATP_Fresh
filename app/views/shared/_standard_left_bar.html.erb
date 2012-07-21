@@ -16,9 +16,16 @@
 				</span>
 			</h2>
 			<span>
-			<h2 align="right">
-			  <%= link_to "All of my Agreements", current_user %><br><br><br>
-			  <%= link_to "All of the Topics", all_path %>
+			<h2>
+  				<%  if request.fullpath == all_path %>
+      				<%= link_to "All my Agreements", current_user %><br><br><br>
+      				<b><%= link_to "All the Topics >", all_path %></b>
+   				<% else %>
+      				<b><%= link_to "All my Agreements >", current_user %></b><br><br><br>
+      				<%= link_to "All the Topics", all_path %>
+      			<% end %>
+			</p></h2>
+
 			</h2>
 			</span>
 			

@@ -2,7 +2,7 @@
 	        <% if @agreement.user.nil? %>
 	        	That Author was removed for some reason.
 	        <% else %>
-	        	<%= @agreement.user.name %>
+	        	<%= link_to @agreement.user.name, user_path(@agreement.user) %>
 	        <% end %>
     	</div></h3>
     	<br>
