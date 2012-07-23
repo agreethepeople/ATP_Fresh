@@ -7,7 +7,7 @@ class Agreement < ActiveRecord::Base
   belongs_to :user
   belongs_to :topic
 
-  validates :content, presence: true, length: { maximum: 130 }
+  validates :content, presence: true, length: { maximum: 140 }
   validates :topic, presence: true
 
 
