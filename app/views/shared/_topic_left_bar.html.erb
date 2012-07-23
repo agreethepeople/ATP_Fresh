@@ -1,54 +1,51 @@
+
+
 <section>
 
+
+			<%= link_to image_tag("logo.jpg", :size => "160x160"), root_path %>
+			
 	<% if signed_in? %>
 
-
-			<a href="<%= user_path(current_user) %>">
-			  <%= gravatar_for current_user, size: 52 %>
+			<a href="<%= edit_user_path(current_user) %>">
+				<h3>
+					<span>
+				  	Logged in as <h2>@<%= current_user.twitter_handle %></h2>
+					</span>
+				</h3>
 			</a>
-			<h1>
-			  <%= current_user.name %>
-			</h1>
-			<br>
-			<h2>
-				<span>
-				  Logged in as @<%= current_user.twitter_handle %>
-				</span>
-			</h2>
-			<span>
-			<h2 align="right"><p align="right">
-  				<%  if request.fullpath == "/#{@topic.slug}" %>
-      				<b><%= link_to "Agreements >", @topic.slug %></b><br><br>
-      				<%= link_to "Analysis", analysis_path(@topic.slug) %>
-   				<% else %>
-      				<%= link_to "Agreements", mainpage_path(@topic.slug) %><br><br>
-      				<b><%= link_to "Analysis >", analysis_path(@topic.slug) %></b>
+      		<h4><%= link_to current_user do %>
+      				<font color=black>My Agreements</font>
       			<% end %>
-			</p></h2>
-			</span>
-			
+      		</h4>
 
+</section>
 
 
 	<% else %>
 
-
 	      <section>
-	            <h3>
+	            <h4>
 	            	For the full experience, you really should be signed in.<br>
 		            <p></p>
 		            	<%= link_to "Sign in with Twitter", signup_path, class: "btn btn-large btn-primary" %>
 		        	<p></p>
 		        	We promise you won't regret it. 
-		        </h3>
+		        </h4>
 	        </section>
-			<span>
-			<h2 align="right"><br><br>
-			  <%= link_to "All of the Topics", all_path %>
-			</h2>
-			</span>
+
 
 	<% end %> 
 
 
+<section>
+
+			<h2><p align="center">
+  				<%  if request.fullpath == "/#{@topic.slug}" %>
+      				<%= link_to "Topic Analyis", analysis_path(@topic.slug) %>
+  				<%  elsif request.fullpath == "#{analysis_path(@topic.slug)}" %>
+      				<%= link_to "Topic Agreements", mainpage_path(@topic.slug) %><br><br>
+      			<% end %>
+			</p></h2>
+			</span>
 </section>

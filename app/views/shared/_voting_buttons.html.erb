@@ -28,9 +28,16 @@
 							<%= f.submit "Essential", class: "btn btn-large btn-success", id: 'High' %>
 							</p>
 						</div>
-							<%= f.submit "Disagree", class: "btn btn-large btn-danger", id: 'Disagree' %>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<%= f.submit "Skip", class: "btn btn-large", id: 'Skip' %>
-
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<%= f.submit "Disagree", class: "btn btn-danger", id: 'Disagree' %><br>
+							<% if signed_in? %>
+								<% unless current_vote_for_helper(current_user, @agreement).nil? then %>
+									You're current vote on this agreement is: 
+									<%= current_vote_for_helper(current_user, @agreement) %>
+								<% end %>
+							<% end %>
 					</td>
 				</tr>
 			</table>
@@ -38,13 +45,6 @@
 
 
 	<% end %>
-<% if signed_in? %>
-	<% unless current_vote_for_helper(current_user, @agreement).nil? then %>
-		You're current vote on this agreement is: 
-		<%= current_vote_for_helper(current_user, @agreement) %>
-	<% end %>
-<% end %>
-
 
 
 
