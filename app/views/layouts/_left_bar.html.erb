@@ -36,3 +36,20 @@
 
 
 	<% end %> 
+
+
+
+
+<section>
+	<% unless @topic.nil? %>
+			<h2><p align="center">
+  				<%  if request.fullpath == "#{analysis_path(@topic.slug)}" %>
+      				<%= link_to "Topic Agreements", mainpage_path(@topic.slug) %><br><br>
+  				<%  elsif request.fullpath.include? "/#{@topic.slug}" %>
+      				<%= link_to "Topic Analyis", analysis_path(@topic.slug) %>
+      			<% end %>
+			</p></h2>
+			</span>
+	<% end %>
+</section>
+

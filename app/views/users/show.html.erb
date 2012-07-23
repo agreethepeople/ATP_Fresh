@@ -1,15 +1,4 @@
 <% provide(:title, @user.twitter_handle) %>
-
-<div class="row">
-    <aside class="span3">
-
-      <%= render 'shared/standard_left_bar' %>
-
-    </aside>
-
-
-
-  	<div class="span9">
       <% if current_user == @user %>
         
         <h1>All of my Agreements</h1>
@@ -20,7 +9,3 @@
         <h1>What <%= @user.twitter_handle %> wrote </h1>
 			     <%= render 'users/authored_agreements' %>
       <% end %>
-    </div>
-
-
-</div>
