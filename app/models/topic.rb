@@ -14,4 +14,9 @@ class Topic < ActiveRecord::Base
 		where("id IN (#{interested_topics})", user_id: user)
 	end
 
+  def self.all_written_to(user)
+    interested_topics = "SELECT id FROM topics WHERE id IN ( SELECT topic_id FROM agreements WHERE agreements.user_id = :user_id )" 
+    where("id IN (#{interested_topics})", user_id: user)
+  end
+
 end

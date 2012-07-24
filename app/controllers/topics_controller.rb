@@ -31,7 +31,7 @@ class TopicsController < ApplicationController
   end
 
   def agreements
-    puts "big ol' list of all the agreements"
+    puts "big ol' list of all the agreements?"
   end
 
 end

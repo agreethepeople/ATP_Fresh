@@ -19,15 +19,12 @@ class Agreement < ActiveRecord::Base
 	 	# agreement_topics = "SELECT topic_id FROM agreements WHERE topic_id = :topic_id"
 	 	# voted_agreements = "SELECT voteable_id FROM votes WHERE voter_id = :user_id"
 	 	# all_agreements = where("id IN (#{voted_agreements}) AND topic_id IN (#{agreement_topics})", user_id: user, topic_id: topic)
-
-	 	#Agreement.find_by_sql('SELECT agreements.* FROM agreements JOIN votes v ON v.voteable_id = agreements.id WHERE v.voter_id = :uid AND agreements.topic_id = :tid ORDER BY v.value DESC', uid: user.id, tid: topic.id)
 	 	voted_agreements = Agreement.find_by_sql ["SELECT agreements.* FROM agreements JOIN votes v ON v.voteable_id = agreements.id WHERE v.voter_id = ? AND agreements.topic_id = ? ORDER BY v.value DESC", user.id, topic.id]
-	 	#where("id IN (#{voted_agreements}) ORDER BY v.value DESC", uid: user.id, tid: topic.id)
-
-
 	 end
 
-
+	 def self.all_written_by_user_on_topic(user, topic)
+	 	Agreement.find_by_sql ["SELECT agreements.* FROM agreements WHERE user_id = ? AND topic_id = ? ", user.id, topic.id]
+	 end
 
 # SELECT agreements.*
 # FROM agreements

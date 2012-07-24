@@ -1,11 +1,16 @@
 <% provide(:title, @user.twitter_handle) %>
+      
+
       <% if current_user == @user %>
         
         <h1>All of my Agreements</h1>
-        <%= render 'users/topics_voted' %>
 
       <% else %>
 
         <h1>What <%= @user.twitter_handle %> wrote </h1>
-			     <%= render 'users/authored_agreements' %>
+
       <% end %>
+
+
+
+        <%= render 'users/topics_voted' %>

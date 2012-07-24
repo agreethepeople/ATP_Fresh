@@ -1,9 +1,21 @@
 <ul class="agreements">
 	<% @important_topics.each do |topic| %>
-		<li>
+			
 			<% @this_topic = topic %>
-			<h2><%= link_to topic.title, mainpage_path(topic.slug) %></h2>
-			    <%= render 'users/voted_agreements' %>
-		</li>
+
+			<%= link_to mainpage_path(topic.slug) do %>
+				<font size=6 align="left"><b><%= topic.title %></b></font>
+			<% end %>
+
+
+			<% if current_user == @user %>
+		    	<%= render 'users/voted_agreements' %>
+		    <% elsif current_user.id != @user.id %>
+		    	<%= render 'users/authored_agreements' %>
+		    <% end %>
+		
+
+
+		<br><br><br>
 	<% end %>
 </ul>
