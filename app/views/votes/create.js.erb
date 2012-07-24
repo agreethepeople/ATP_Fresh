@@ -3,13 +3,5 @@ $("#new_agreement").html("<% @agreement = generate_agreement_for %>")
 $("#agreement_content").html("<%= escape_javascript(render('shared/agreement_box')) %>")
 $("#voting_buttons").html("<%= escape_javascript(render('shared/voting_buttons')) %>")
 $("#tweet_button").html("<%= escape_javascript(render('shared/tweet_button')) %>")
+$("#agreementcount").html("<font color='bf5803' size=10><%= number_of_agreements_for_user(current_user) %></font>")
 
-
-
-
-
-//#$("#new_agreement2").html("WORKING")
-//#$("#new_agreement3").html("<%= @agreement.content %>")
-//# $("#new_agreement").html("<% @agreement = generate_agreement_for %>")
-//# $("#agreement_content").html("<%= escape_javascript(render('shared/agreement_box')) %>")
-//# $("#agreement_content").html("<%= escape_javascript(render('shared/agreement_box')) %>")

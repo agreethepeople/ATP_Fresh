@@ -28,5 +28,8 @@ module TopicsHelper
 		return user.current_vote_on(agreement)
 	end
 
+	def number_of_agreements_for_user(user)
+		Agreement.joins('INNER JOIN votes ON votes.voteable_id = agreements.id').where('voter_id=? AND topic_id=? AND votes.value > 0', user.id, @topic.id).count
+	end
 
 end

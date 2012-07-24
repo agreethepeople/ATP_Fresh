@@ -1,5 +1,7 @@
          <h1><%= @topic.title %></h1>
-      <div class="hero-unit">
+      
+      <div class="well" id="well">
+        <br>
         <% if @topic.agreements.count > 0 %>
           <div id="new_agreement"></div>
           <div id="agreement_content">
@@ -10,10 +12,19 @@
           </div>
 
 
-        <% end %>
 
-
-      </div>
+          <% if signed_in? %>
+              <p>
+                <div id="agreementcount", align="right">
+                  <font color="bf5803" size=10>
+                    
+                      <%= number_of_agreements_for_user(current_user) %>
+                  </font>
+                </div>
+              </p>
+          <% end %>
+      <% end %>
+    </div>
 
 
 

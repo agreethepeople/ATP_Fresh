@@ -10,6 +10,10 @@ class Agreement < ActiveRecord::Base
   validates :content, presence: true, length: { maximum: 140 }
   validates :topic, presence: true
 
+# for a link
+#validates_format_of :domain_name, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
+
+
 
 	 def self.all_voted_on_by_user_and_topic(user, topic)
 	 	agreement_topics = "SELECT topic_id FROM agreements WHERE topic_id = :topic_id"
@@ -17,6 +21,18 @@ class Agreement < ActiveRecord::Base
 	 	all_agreements = where("id IN (#{voted_agreements}) AND topic_id IN (#{agreement_topics})", user_id: user, topic_id: topic)
 
 	 end
+
+
+
+# SELECT agreements.*
+# FROM agreements
+# JOIN votes v ON voteable_type = 'Agreement' AND voteable_id = agreements.id
+# --WHERE ag.voter_id =
+# --AND ag.topic_id =
+# ORDER BY v.value DESC;
+
+
+
 
 
 # SELECT agreements.*, votes.b2_value FROM agreements, votes JOIN on voteable_id = agreement.id 
