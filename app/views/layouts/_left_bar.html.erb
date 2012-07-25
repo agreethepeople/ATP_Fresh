@@ -6,16 +6,27 @@
 			<%= link_to image_tag("logo.jpg", :size => "160x160"), root_path %>
 			
 	<% if signed_in? %>
-
+			
+		<% if current_user.email=="replace-me-please@example.com" %>
 			<a href="<%= edit_user_path(current_user) %>">
 				<h3>
-					<span>
-				  	Logged in as <font size=5, color="#aaaaaa">@<%= current_user.twitter_handle %></font><br><br>
-					</span>
+					<span><font size=3, color="#aaaaaa">
+						<br>Complete your profile! <br><br><br>
+					</font></span>
 				</h3>
 			</a>
-      		<h4><%= link_to current_user do %>
-      				<font color=black>My Agreements</font>
+      	<% else %>
+			<a href="<%= user_path(current_user) %>">
+				<span>
+					<font size=5, color="#aaaaaa">@<%= current_user.twitter_handle %></font><br><br>
+				</span>
+			</a>
+		<% end %>
+
+
+			<h4>	
+			<%= link_to current_user do %>
+      				<font color=black>All My Agreements</font>
       			<% end %>
       		</h4>
 
@@ -46,7 +57,7 @@
   				<%  if request.fullpath == "#{analysis_path(@topic.slug)}" %>
       				<%= link_to "Topic Agreements", mainpage_path(@topic.slug) %><br><br>
   				<%  elsif request.fullpath.include? "/#{@topic.slug}" %>
-      				<%= link_to "Topic Analyis", analysis_path(@topic.slug) %>
+      				<%= link_to "Topic Analysis", analysis_path(@topic.slug) %>
       			<% end %>
 			</p></h2>
 			</span>

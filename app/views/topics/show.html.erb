@@ -15,16 +15,17 @@
 
           <% if signed_in? %>
               <p>
-                <div id="agreementcount", align="right">
-                  <font color="bf5803" size=10>
-                    
-                      <%= number_of_agreements_for_user(current_user) %>
-                  </font>
-                </div>
+                <%= link_to user_path(current_user) do %>
+                    <div id="agreementcount", align="right">
+                      <font color="bf5803" size=10>  
+                          <%= number_of_agreements_for_user(current_user) %>
+                      </font>
+                    </div>
+                <% end %>
               </p>
           <% end %>
       <% else %>
-          <p><h3>This is a brand new topic! Please do us the honor of writing the first agreement below.</h3></p><br><br>
+          <p><h3>This is a brand new topic! </h3></p><br><br>
       <% end %>
     </div>
 

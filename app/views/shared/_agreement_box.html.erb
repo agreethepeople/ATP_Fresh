@@ -1,13 +1,17 @@
-        <h3><div id="new_agreement2"><br>
+        
+    	<br>
+        <h3><font color="black" size=5><div id="new_agreement3"><%= @agreement.content %></div></font></h3>
+        <br>
+		<h4>
+		<div id="new_agreement2">
 	        <% if @agreement.user.nil? %>
-	        	That Author was removed for some reason.
+	        	<font color="#aaaaaa">That Author was removed for some reason.</font>
 	        <% else %>
+	        	<font color="#aaaaaa">written by </font>
 	        	<%= link_to user_path(@agreement.user) do %>
-	        		<font color="black"><%= @agreement.user.name %></font>
+	        		<font color="#aaaaaa"><%= @agreement.user.twitter_handle %></font>
 	        	<% end %>
 	        <% end %>
-    	</div></h3>
-    	<br>
-        <h2><div id="new_agreement3"><%= @agreement.content %><br></div></h2>
-
-
+    	</div>
+   		</h4>
+   		<br><br>

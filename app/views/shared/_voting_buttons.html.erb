@@ -1,6 +1,6 @@
 
 		
-	<%= form_for(:votes, url: voting_path, remote: true) do |f| %>
+	<%= form_for(:votes, url: voting_path) do |f| %>
 		<% if signed_in? %>
 			<div><%= f.hidden_field :voter_id, value: current_user.id %></div>
 		<% end %>
@@ -14,22 +14,24 @@
 						<div id="tweet_button"><%= render 'shared/tweet_button' %></div>
 					</td>
 					<td width=60%>
-						<h3>I agree, and this point is: </h3>
+						<h3><font color="#aaaaaa">I agree, and it's</font></h3>
 					</td>
 				</tr>
 				<tr>
 					<td>
 					</td>
 					<td>
-						<div class="btn-group">
-							<p align="right">
-							<%= f.submit "Trivial", class: "btn btn-large btn-warning", id: 'Low' %>
-							<%= f.submit "Relevant", class: "btn btn-large btn-info", id: 'Medium' %>
-							<%= f.submit "Essential", class: "btn btn-large btn-success", id: 'High' %>
-							</p>
+						<div>
+							<%= f.submit "Sorta", class: "btn btn-large btn-info", value: LOW %>
+							<%= f.submit "Definitely", class: "btn btn-large btn-info", value: MEDIUM %>
+							<%= f.submit "Extremely", class: "btn btn-large btn-info", value: HIGH %>
 						</div>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<%= f.submit "Skip", class: "btn btn-large", id: 'Skip' %>
+						<h3><font color="#aaaaaa">important for <%= @topic.title %></font></h3><br><br>
+
+
+
+
+							<%= f.submit "Skip", class: "btn", id: 'Skip' %>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<%= f.submit "Disagree", class: "btn btn-danger", id: 'Disagree' %><br>
 							<% if signed_in? %>

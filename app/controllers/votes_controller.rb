@@ -4,6 +4,8 @@ class VotesController < ApplicationController
 	respond_to :html, :js
 
 	def create
+		puts params
+
 		@vote_agreement = Agreement.find(params[:votes][:voteable_id])
 		@topic = @vote_agreement.topic
 
@@ -15,6 +17,12 @@ class VotesController < ApplicationController
 			when "Relevant"
 				value = :medium
 			when "Essential"
+				value = :high
+			when LOW
+				value = :low
+			when MEDIUM
+				value = :medium
+			when HIGH
 				value = :high
 			when "Disagree"
 				value = :against

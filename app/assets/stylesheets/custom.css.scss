@@ -305,6 +305,41 @@ input, textarea, select, .uneditable-input {
 }
 
 
+
+.btn-disagree {
+  background-color: #006dcc;
+  color: #ffffff;
+  background-image: -moz-linear-gradient(top, #a00000, #720000);
+  background-image: -ms-linear-gradient(top, #a00000, #720000);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#a00000), to(#720000));
+  background-image: -webkit-linear-gradient(top, #a00000, #720000);
+  background-image: -o-linear-gradient(top, #a00000, #720000);
+  background-image: linear-gradient(top, #a00000, #720000);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#'a00000, endColorstr='#'720000, GradientType=0);
+  border-color: #0044cc #0044cc #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.btn-disagree:hover,
+.btn-disagree:active,
+.btn-disagree.active,
+.btn-disagree.disabled,
+.btn-disagree[disabled] {
+  background-color: #720000;
+}
+.btn-disagree:active, .btn-disagree.active {
+  background-color: #003399 \9;
+}
+
+
+
+
+
+
+
+
+
 #well {
   padding-left: 60px;
   padding-bottom: 0;
