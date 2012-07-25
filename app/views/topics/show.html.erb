@@ -15,7 +15,7 @@
 
           <% if signed_in? %>
               <p>
-                <%= link_to user_path(current_user) do %>
+                <%= link_to user_path(current_user, :topic => @topic.id) do %>
                     <div id="agreementcount", align="right">
                       <font color="bf5803" size=10>  
                           <%= number_of_agreements_for_user(current_user) %>
@@ -25,7 +25,7 @@
               </p>
           <% end %>
       <% else %>
-          <p><h3>This is a brand new topic! </h3></p><br><br>
+          <p><h3>This is a brand new topic. </h3></p><br><br>
       <% end %>
     </div>
 

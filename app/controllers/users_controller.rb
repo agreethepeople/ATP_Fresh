@@ -9,10 +9,20 @@ class UsersController < ApplicationController
 
 
   def show
+
+    puts params
+
     @user = User.find(params[:id])
 
     if (@user == current_user)
+
         @important_topics = Topic.all_of_interest_to(@user)
+
+        #reorder the topics so user can see current relevant one first
+        if (params[:topic] && first_topic=Topic.find_by_id(params[:topic]))
+          @important_topics = @important_topics - Array.new.unshift(first_topic)
+          @important_topics.unshift(first_topic)
+        end
 
         @voted_agreements = Hash.new
         @important_topics.each do |topic|
@@ -20,10 +30,9 @@ class UsersController < ApplicationController
         end
 
     else
-        @important_topics = Topic.all_written_to(@user)
 
-       # @authored_agreements = Agreement.find(:all, :conditions => "user_id = '#{@user.id}'")
-    
+        @important_topics = Topic.all_written_to(@user)
+            
         @authored_agreements = Hash.new
         @important_topics.each do |topic|
             @authored_agreements["#{topic.slug}"] = Agreement.all_written_by_user_on_topic(@user, topic)
