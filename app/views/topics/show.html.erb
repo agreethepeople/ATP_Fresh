@@ -17,8 +17,8 @@
               <p>
                 <%= link_to user_path(current_user, :topic => @topic.id) do %>
                     <div id="agreementcount", align="right">
-                      <font color="bf5803" size=10>  
-                          <%= number_of_agreements_for_user(current_user) %>
+                      <font color="bf5803" size=4>  
+                          <font size=10><%= number_of_agreements_for_user(current_user) %></font> agreements
                       </font>
                     </div>
                 <% end %>
