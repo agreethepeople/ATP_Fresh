@@ -14,9 +14,5 @@ class StaticPagesController < ApplicationController
 
 	def contact
 	end
-  
-  	def blog
-  		@posts = Blog.all
-  	end
 
 end
