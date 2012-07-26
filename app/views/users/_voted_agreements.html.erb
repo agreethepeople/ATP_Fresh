@@ -2,9 +2,17 @@
 
 	<% @voted_agreements["#{@this_topic.slug}"].each do |agree| %>
 		<li>
-			<%= link_to agree.content, "/#{agree.topic.slug}?agreement=#{agree.id}" %> 
-			<%= current_vote_for_helper(current_user, agree) %>
 
+			<% if agree.user_id == current_user.id %>
+				<b>
+					<%= link_to agree.content, "/#{agree.topic.slug}?agreement=#{agree.id}" %>
+					<%= current_vote_for_helper(current_user, agree) %> | 
+					<%= pluralize(agree.votes_for, "agreer") %>
+				</b>
+			<% else %>
+				<%= link_to agree.content, "/#{agree.topic.slug}?agreement=#{agree.id}" %>
+				<%= current_vote_for_helper(current_user, agree) %>
+			<% end %>
 			<br>
 		</li>
 
