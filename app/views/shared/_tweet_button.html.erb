@@ -1,6 +1,6 @@
 <% string_to_tweet = @agreement.content %>
 <% url = short_link_for_agreement(@agreement) %>
-<% (string_to_tweet = string_to_tweet.slice(0..118) + "...") if string_to_tweet.length > 122 %>
+<% (string_to_tweet = string_to_tweet.slice(0..113) + "...") if string_to_tweet.length > 117 %>
 <% string_to_tweet = '"'+string_to_tweet+'"'%>
 
 <a href="https://twitter.com/share" class="twitter-share-button" 

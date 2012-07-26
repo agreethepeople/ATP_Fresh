@@ -56,9 +56,7 @@ class UsersController < ApplicationController
     #@user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       #successful update
-      flash[:success] = "Profile Updated"
-        #sign_in @user
-        #need to sign in again because the remember token gets reset
+      @user.email == "replace-me-please@example.com" ?  flash[:success] = "Profile Updated" : flash[:success] = "Thanks for updating your email."
       redirect_to user_path(@user)
     else
       #unsuccessful

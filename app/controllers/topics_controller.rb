@@ -14,7 +14,7 @@ class TopicsController < ApplicationController
   def show
     #one topic main page
     @topic = Topic.find_by_slug(params[:slug])
-    flash[:notice] = "Sign in to have your votes counted!" unless signed_in?
+    flash[:notice] = "Sign in to have your votes counted. Anything you agree with is private to you." unless signed_in?
     @user = current_user if signed_in?
     if (params[:agreement])
       alex = Agreement.find(params[:agreement])
@@ -32,6 +32,7 @@ class TopicsController < ApplicationController
 
   def agreements
     puts "big ol' list of all the agreements?"
+    @agreements = @topic.agreements
   end
 
 end

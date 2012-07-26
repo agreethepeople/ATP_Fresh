@@ -22,7 +22,7 @@ class AuthenticationsController < ApplicationController
 		user.authentications.find_or_create_by_provider_and_uid(auth['provider'], auth['uid'])
 		user.email = "replace-me-please@example.com" if !user.valid?
 		user.save!
-		flash[:success] = "Welcome, @#{user.twitter_handle}."
+		flash[:success] = "Welcome, @#{user.twitter_handle}! We won't tweet or follow or in any way abuse your trust."
 		#@current_user = user
 		#session[:user_id] = user.id
 		sign_in(user)
