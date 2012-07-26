@@ -53,41 +53,12 @@ class User < ActiveRecord::Base
     end
 
 
-
-     #  def vote_exclusively_for_test(voteable, importance)
-     #    self.vote_test(voteable, { :direction => :up, :exclusive => true, :value => importance })
-     #  end
-
-     #  def vote_exclusively_against_test(voteable, importance=-1)
-     #    self.vote_test(voteable, { :direction => :down, :exclusive => true, :value => -1 })
-     #  end
-
-     #  def unvote_for_test(voteable)
-     #    Vote.where(
-     #      :voter_id => self.id,
-     #      :voter_type => self.class.base_class.name,
-     #      :voteable_id => voteable.id,
-     #      :voteable_type => voteable.class.base_class.name
-     #    ).map(&:destroy)
-     #  end
-
-     # def vote_test(voteable, options = {})
-     #  #       importance=:against
-     #  #  self.vote(voteable, { :direction => :down, :exclusive => true, :value => importance })
-     #  # :exclusive (true),
-     #  # :direction (:up, :down)
-     #  # :value (:high, :medium, :low, :against, :skip)
-     #    raise ArgumentError, "you must specify :up or :down in order to vote" unless options[:direction] && [:up, :down].include?(options[:direction].to_sym)
-     #    raise ArgumentError, "you must specify value vote" unless options[:direction] && [:up, :down].include?(options[:direction].to_sym)
-     #    remember_tweet = self.tweeted?(voteable) #because the unvote will wipe it out
-     #    if options[:exclusive]
-     #      self.unvote_for_test(voteable)
-     #    end
-     #    direction = (options[:direction].to_sym == :up)
-     #    weight = options[:value]
-  
-     #    Vote.create!(:vote => direction, :voteable => voteable, :voter => self, :value => weight, :tweeted => remember_tweet)
-     #  end
+    def points
+      user_agreements = Vote.where("voter_id = ? AND value > 0", self.id).count
+      authored_agreements = "SELECT id FROM agreements WHERE user_id = :author"
+      votes_generated = Vote.where("voteable_id IN (#{authored_agreements}) AND value > 0 AND voter_id != :author", author: self.id).count
+      total_points = user_agreements + votes_generated
+    end
 
 
 end

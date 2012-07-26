@@ -25,9 +25,9 @@
 
 
 			<h4>	
-			<%= link_to current_user do %>
-      				<font color=black>All My Agreements</font>
-      			<% end %>
+				<%= link_to current_user do %>
+	      				<font color=black>You have <%= pluralize(current_user.points, "point") %>!</font>
+	      		<% end %>
       		</h4>
 
 </section>

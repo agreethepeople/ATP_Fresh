@@ -3,7 +3,6 @@
 class StaticPagesController < ApplicationController
   	def home
 		@topics = Topic.find(:all)
-
 	end
 
 	def help
