@@ -12,7 +12,7 @@
 
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :twitter_handle
+  attr_accessible :email, :name, :password, :password_confirmation, :twitter_handle, :admin
 
   has_many :agreements
   has_many :authentications

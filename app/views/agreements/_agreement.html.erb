@@ -1,0 +1,16 @@
+<li>
+
+	<%= link_to "/#{agreement.topic.slug}?agreement=#{agreement.id}" do %> 
+		<font color="black" size=4>
+			<font color="green" size=2><%= agreement.created_at.strftime("%a %I:%M%p") %> | </font>
+			<%= agreement.content %> 
+		</font>
+	<% end %>
+
+	<% if current_user.admin? %>
+		| <%= link_to "DELETE IT", "/#{@topic.slug}/agreements/#{agreement.id}/delete", controller: :agreements, method: :delete, 
+					data: {confirm: 'You sure?' } %>
+	<% end %>
+
+	<br><br>
+</li>

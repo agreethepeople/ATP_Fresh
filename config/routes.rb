@@ -11,7 +11,6 @@ ATPFresh::Application.routes.draw do
   resources :authentications, only: [:new, :create, :destroy]
 
 
-
   resources :users
 
   match '/help',    to: 'static_pages#help'
@@ -26,6 +25,9 @@ ATPFresh::Application.routes.draw do
   match '/:slug/analysis' => 'topics#analysis', via: :get, as: "analysis"
 
   match '/:slug/agreements' => 'topics#agreements', via: :get #build this
+
+  match '/:slug/agreements/:id/delete' => 'agreements#delete', via: :delete
+
   match '/user/:id/agreements' => 'users#agreements', via: :get #build this
 
   match '/:slug/agreements/create' => 'agreements#create', via: :post #build this

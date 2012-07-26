@@ -4,6 +4,10 @@ include TopicsHelper
 
 class TopicsController < ApplicationController
 
+  before_filter :signed_in_user, only: [:agreements]
+
+
+
   respond_to :html, :js
 
   def index
@@ -31,9 +35,21 @@ class TopicsController < ApplicationController
   end
 
   def agreements
-    puts "big ol' list of all the agreements?"
-    @agreements = @topic.agreements
+    @topic = Topic.find_by_slug(params[:slug])
+    @agreements = @topic.agreements.order('created_at DESC')
   end
+
+
+  private
+    
+    def signed_in_user
+      unless signed_in?
+        #store_location
+        redirect_to root_path, notice: "Please sign in."
+      end
+    end
+
+
 
 end
 
