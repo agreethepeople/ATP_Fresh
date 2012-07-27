@@ -5,25 +5,26 @@
 	<section>
 			<h3><p align="left">
 
-      				<%= link_to mainpage_path(@topic.slug) do %>
-						<%= image_tag("voting.jpg", :size => "25x25") %>
-      				<% end %>&nbsp;&nbsp;
-      				<%= link_to analysis_path(@topic.slug) do%>
-						<%= image_tag("analysis.gif", :size => "25x25") %>
-      				<% end %>&nbsp;&nbsp;
-
+      				<%= link_to image_tag("voting.jpg", :size => "25x25"), mainpage_path(@topic.slug),
+      					{ id: "example", rel: "popover", placement: "bottom", title: "Voting" } %>
+      					&nbsp;&nbsp;
+      				<%= link_to image_tag("analysis.gif", :size => "25x25"), analysis_path(@topic.slug),
+      					{ id: "example2", rel: "popover", placement: "bottom", title: "Analysis" } %>
+						&nbsp;&nbsp;
       				<% if signed_in? %>
-	      				<%= link_to all_agreements_path(@topic.slug) do %>
-							<%= image_tag("all.png", :size => "25x25") %>
-	      				<% end %>&nbsp;&nbsp;
-	      				<%= link_to user_path(current_user, topic: @topic.id) do %>
-							<%= image_tag("personal.png", :size => "25x25") %>
-	      				<% end %>
+		      				<%= link_to image_tag("all.png", :size => "25x25"), all_agreements_path(@topic.slug),
+		      					{ id: "example3", rel: "popover", placement: "bottom", title: "All Agreements" } %>
+								&nbsp;&nbsp;
+		      				<%= link_to image_tag("personal.png", :size => "25x25"), user_path(current_user, topic: @topic.id),
+		      					{ id: "example4", rel: "popover", placement: "bottom", title: "My Agreements" } %>
 	      			<% else %>
-	      				<%= image_tag("all.png", :size => "25x25") %>
-	      				&nbsp;&nbsp;
-						<%= image_tag("personal.png", :size => "25x25") %>
+		      				<%= link_to image_tag("all.png", :size => "25x25"), '#',
+		      					{ id: "example3", rel: "popover", placement: "bottom", title: "All Agreements" } %>
+								&nbsp;&nbsp;
+		      				<%= link_to image_tag("personal.png", :size => "25x25"), '#',
+		      					{ id: "example4", rel: "popover", placement: "bottom", title: "My Agreements" } %>
 	      			<% end %>
+
 
 
   				<%  if request.fullpath == "#{analysis_path(@topic.slug)}" %>
@@ -36,8 +37,10 @@
 <% end %>
 
 
-<section>
 
+
+
+<section>
 
 			<%= link_to image_tag("logo.jpg", :size => "160x160"), root_path %>
 			
@@ -88,3 +91,13 @@
 	<% end %> 
 
 
+<script src="/assets/javascript/bootstrap-tooltip.js"></script>  
+<script src="/assets/javascript/bootstrap-popover.js"></script>  
+<script>  
+$(function ()  
+{ $("#example").popover();  
+  $("#example2").popover();  
+  $("#example3").popover();  
+  $("#example4").popover();  
+});  
+</script>  

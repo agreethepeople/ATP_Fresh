@@ -5,6 +5,7 @@
 LOW = "Not"
 MEDIUM = "Sorta"
 HIGH = "Definitely"
-
+ZERO = "Bad Post"
+NEGATIVE = "Do Not Agree"
 
 

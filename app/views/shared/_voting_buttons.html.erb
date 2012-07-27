@@ -26,14 +26,13 @@
 							<%= f.submit "Definitely", class: "btn btn-large btn-info", value: MEDIUM %>
 							<%= f.submit "Extremely", class: "btn btn-large btn-info", value: HIGH %>
 						</div>
-						<h3><font color="#aaaaaa">important for <%= @topic.title %></font></h3><br><br>
+						<h3><font color="#aaaaaa">important for <%= @topic.title %></font></h3><br>
 
 
 
 
-							<%= f.submit "Skip", class: "btn", id: 'Skip' %>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<%= f.submit "Disagree", class: "btn btn-danger", id: 'Disagree' %><br>
+							<%= f.submit "Skip", class: "btn btn-danger", value: ZERO %>
+							<%= f.submit "Disagree", class: "btn btn-large btn-inverse", value: NEGATIVE %><br>
 							<% if signed_in? %>
 								<% unless current_vote_for_helper(current_user, @agreement).nil? then %>
 									Your current vote on this agreement is: 

@@ -1,20 +1,23 @@
 <ul class="agreements">
 
 	<% @voted_agreements["#{@this_topic.slug}"].each do |agree| %>
-		<li>
 
 			<% if agree.user_id == current_user.id %>
 				<b>
+					<li>
 					<%= link_to agree.content, "/#{agree.topic.slug}?agreement=#{agree.id}" %>
 					<%= current_vote_for_helper(current_user, agree) %> | 
 					<%= pluralize(agree.votes_for, "agreer") %>
+					</li>
 				</b>
 			<% else %>
-				<%= link_to agree.content, "/#{agree.topic.slug}?agreement=#{agree.id}" %>
-				<%= current_vote_for_helper(current_user, agree) %>
+				<% unless current_vote_for_helper(current_user,agree) == "#{ZERO}" || current_vote_for_helper(current_user,agree) == "#{NEGATIVE}" %>
+						<li>
+						<%= link_to agree.content, "/#{agree.topic.slug}?agreement=#{agree.id}" %>
+						<%= current_vote_for_helper(current_user, agree) %>
+						</li>
+				<% end %>
 			<% end %>
-			<br>
-		</li>
 
 	<% end %>
 </ul>

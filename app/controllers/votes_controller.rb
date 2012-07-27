@@ -18,16 +18,21 @@ class VotesController < ApplicationController
 				value = :medium
 			when "Essential"
 				value = :high
+			when "Disagree"
+				value = :against
+			when "Skip"
+				value = :skip
 			when LOW
 				value = :low
 			when MEDIUM
 				value = :medium
 			when HIGH
 				value = :high
-			when "Disagree"
+			when NEGATIVE
 				value = :against
-			when "Skip"
-				value = :skip
+			when ZERO
+				value = :skip			
+
 			end
 
 			if value == :against

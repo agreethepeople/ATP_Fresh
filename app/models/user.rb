@@ -48,8 +48,8 @@ class User < ActiveRecord::Base
       return "#{LOW} Important" if self.voted_low?(agreement)
       return "#{MEDIUM} Important" if self.voted_medium?(agreement)
       return "#{HIGH} Important" if self.voted_high?(agreement)
-      return "Disagree" if self.voted_against?(agreement)
-      return "Skip" if self.voted_skip?(agreement)
+      return "#{NEGATIVE}" if self.voted_against?(agreement)
+      return "#{ZERO}" if self.voted_skip?(agreement)
     end
 
 
