@@ -24,6 +24,15 @@ module TopicsHelper
 	end
 
 
+
+	def agreements_left_in_topic_for_user(user, topic)
+		if (user && topic)
+			left_in_topic = topic.agreements.count - Agreement.joins('INNER JOIN votes ON votes.voteable_id = agreements.id').where('voter_id=? AND topic_id=?', user.id, topic.id).count
+		end
+	end
+
+
+
 	def current_vote_for_helper(user, agreement)
 		return user.current_vote_on(agreement)
 	end

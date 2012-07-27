@@ -23,49 +23,15 @@ class Agreement < ActiveRecord::Base
 	 end
 
 	 def self.all_written_by_user_on_topic(user, topic)
+	 	#all the agreements written by a user on a topic
 	 	Agreement.find_by_sql ["SELECT agreements.* FROM agreements WHERE user_id = ? AND topic_id = ? ", user.id, topic.id]
 	 end
 
-# SELECT agreements.*
-# FROM agreements
-# JOIN votes v ON voteable_type = 'Agreement' AND voteable_id = agreements.id
-# --WHERE ag.voter_id =
-# --AND ag.topic_id =
-# ORDER BY v.value DESC;
 
 
-
-
-
-# SELECT agreements.*, votes.b2_value FROM agreements, votes JOIN on voteable_id = agreement.id 
-# WHERE 
-	
-		# agreements_and_votes = all_agreements.find(:all, :joins => "INNER JOIN votes ON votes.voteable_id = agreements.id")
-		
-		# SELECT agreements.*, votes.value FROM agreements, votes 
-		# WHERE agreements.id = voteable_id AND agreements.id IN (#{all_agreements.id})
-
-		# agreements_and_votes = find(:all, 
-		# 					:joins => "INNER JOIN votes ON votes.voteable_id = :all_agreements.id",
-		# 					:conditions => {}
-		# 					)
-
-
-
-		# puts agreements_and_votes
-
-
-# foo = a.find(:all, 
-#        :joins => [:b, :c], 
-#        :select => "distinct b.b2 as b2_value, c.c2 as c2_value", 
-#        :conditions => {:a => {:a1 => Time.now.midnight. ... Time.now}}, 
-#        :group => "b.b2, c.c2") 
-
-
-
-	 def self.all_voted_on_by_user(user)
-	 	agreements = Agreement.where(user_id: user.id)
-	 end
+	 # def self.all_voted_on_by_user(user)
+	 # 	agreements = Agreement.where(user_id: user.id)
+	 # end
 
 end
 

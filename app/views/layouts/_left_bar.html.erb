@@ -1,10 +1,49 @@
 
 
+<% unless @topic.nil? %>
+
+	<section>
+			<h3><p align="left">
+
+      				<%= link_to mainpage_path(@topic.slug) do %>
+						<%= image_tag("voting.jpg", :size => "25x25") %>
+      				<% end %>&nbsp;&nbsp;
+      				<%= link_to analysis_path(@topic.slug) do%>
+						<%= image_tag("analysis.gif", :size => "25x25") %>
+      				<% end %>&nbsp;&nbsp;
+
+      				<% if signed_in? %>
+	      				<%= link_to all_agreements_path(@topic.slug) do %>
+							<%= image_tag("all.png", :size => "25x25") %>
+	      				<% end %>&nbsp;&nbsp;
+	      				<%= link_to user_path(current_user, topic: @topic.id) do %>
+							<%= image_tag("personal.png", :size => "25x25") %>
+	      				<% end %>
+	      			<% else %>
+	      				<%= image_tag("all.png", :size => "25x25") %>
+	      				&nbsp;&nbsp;
+						<%= image_tag("personal.png", :size => "25x25") %>
+	      			<% end %>
+
+
+  				<%  if request.fullpath == "#{analysis_path(@topic.slug)}" %>
+     			<%  elsif request.fullpath.include? "/#{@topic.slug}" %>
+  				<%  elsif request.fullpath == "#{all_agreements_path(@topic.slug)}" %>
+      			<% end %>
+			</p></h4>
+			</span>
+	</section>
+<% end %>
+
+
 <section>
 
 
 			<%= link_to image_tag("logo.jpg", :size => "160x160"), root_path %>
 			
+
+
+
 	<% if signed_in? %>
 			
 		<% if current_user.email=="replace-me-please@example.com" %>
@@ -48,19 +87,4 @@
 
 	<% end %> 
 
-
-
-
-<section>
-	<% unless @topic.nil? %>
-			<h2><p align="center">
-  				<%  if request.fullpath == "#{analysis_path(@topic.slug)}" %>
-      				<%= link_to "Topic Agreements", mainpage_path(@topic.slug) %><br><br>
-  				<%  elsif request.fullpath.include? "/#{@topic.slug}" %>
-      				<%= link_to "Topic Analysis", analysis_path(@topic.slug) %>
-      			<% end %>
-			</p></h2>
-			</span>
-	<% end %>
-</section>
 

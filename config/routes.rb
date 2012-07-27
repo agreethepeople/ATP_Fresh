@@ -24,7 +24,7 @@ ATPFresh::Application.routes.draw do
   #match "/topics/:id" => redirect("/%{Topic.find(:id).slug}")
   match '/:slug/analysis' => 'topics#analysis', via: :get, as: "analysis"
 
-  match '/:slug/agreements' => 'topics#agreements', via: :get #build this
+  match '/:slug/agreements' => 'topics#agreements', via: :get, as: "all_agreements"
 
   match '/:slug/agreements/:id/delete' => 'agreements#delete', via: :delete
 

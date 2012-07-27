@@ -1,12 +1,14 @@
 
+<h3>Make a post of your own and see how many people agree!</h3><br>
+
 <%= form_for(@topic.agreements.build) do |f| %>
 	<div><%= f.hidden_field :user_id, value: current_user.id %></div>
 	<div><%= f.hidden_field :topic_id, value: @topic.id %></div>	
 	<div class="field">
-			<%= f.text_area :content, placeholder: "This topic currently has #{@topic.agreements.count} posts. Add your voice to the conversation and see how many people agree!", 
+			<%= f.text_area :content, placeholder: "You only get 140 characters, so make them count.", 
 			cols: 80, rows: 3, maxlength: 140 %>
 			
-			<%= f.submit "Add it to This Topic", class: "btn btn-primary" %>
+			<%= f.submit "Add to #{@topic.title}", class: "btn btn-primary" %>
 	</div>
 <% end %>
 

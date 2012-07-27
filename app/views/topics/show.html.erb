@@ -1,8 +1,17 @@
-         <h1><%= @topic.title %></h1>
-      
+
+
+
+<h1><%= @topic.title %>: Voting</h1>
+
       <div class="well" id="well">
         <br>
-        <% if @topic.agreements.count > 0 %>
+
+      <% if @topic.agreements.count > 0 %>
+
+              <% if agreements_left_in_topic_for_user(current_user, @topic) == 0 %>
+                  <% flash.now[:info]="Congratulations, you've voted on everything in #{@topic.title}. Post something new!" %>
+              <% end %>
+
           <div id="new_agreement"></div>
           <div id="agreement_content">
             <%= render 'shared/agreement_box' %>
@@ -10,7 +19,6 @@
           <div id="voting_buttons">
             <%= render 'shared/voting_buttons' %>
           </div>
-
 
 
           <% if signed_in? %>
@@ -25,9 +33,14 @@
                 <% end %>
               </p>
           <% end %>
+      
+
       <% else %>
+
           <p><h3>This is a brand new topic. </h3></p><br><br>
+
       <% end %>
+
     </div>
 
 

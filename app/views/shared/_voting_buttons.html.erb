@@ -36,7 +36,7 @@
 							<%= f.submit "Disagree", class: "btn btn-danger", id: 'Disagree' %><br>
 							<% if signed_in? %>
 								<% unless current_vote_for_helper(current_user, @agreement).nil? then %>
-									You're current vote on this agreement is: 
+									Your current vote on this agreement is: 
 									<%= current_vote_for_helper(current_user, @agreement) %>
 								<% end %>
 							<% end %>

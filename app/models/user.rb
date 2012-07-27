@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
 
 
     def points
+      # agree votes + agrees generated from other people
       user_agreements = Vote.where("voter_id = ? AND value > 0", self.id).count
       authored_agreements = "SELECT id FROM agreements WHERE user_id = :author"
       votes_generated = Vote.where("voteable_id IN (#{authored_agreements}) AND value > 0 AND voter_id != :author", author: self.id).count
