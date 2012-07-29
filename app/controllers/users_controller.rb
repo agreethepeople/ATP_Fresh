@@ -44,7 +44,15 @@ class UsersController < ApplicationController
 
 
   def index
-    @users = User.paginate(page: params[:page])
+
+      #i think this works, need to test with more users
+      puts User.all
+      users = User.all#Array.new(1) { Array.new(2) }
+      sorted = users.sort_by { |user| user.points }
+      puts sorted
+
+
+      @users = User.paginate(page: params[:page])
   end
 
 

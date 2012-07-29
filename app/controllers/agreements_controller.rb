@@ -8,7 +8,11 @@ class AgreementsController < ApplicationController
 			flash[:success] = "Agreement created!"
 			redirect_to "/#{@agreement.topic.slug}?agreement=#{@agreement.id}"
 		else
-        	flash[:failure] = "Agreement not created."
+			if (@agreement.content.length > 140)
+        		flash[:failure] = "Your agreement was not created because it was #{@agreement.content.length} characters long."
+        	else
+        		flash[:failure] = "Agreement not created."
+        	end
         	redirect_to mainpage_path(@agreement.topic.slug)
 		end
 	end
