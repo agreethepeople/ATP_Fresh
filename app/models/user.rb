@@ -12,8 +12,10 @@
 
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :twitter_handle, :admin
-
+  attr_accessible :email, :name, :password, :password_confirmation, :twitter_handle
+  #TODO: add methods needed by any controllers using admin
+  attr_protected :admin
+  
   has_many :agreements
   has_many :authentications
 

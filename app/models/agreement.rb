@@ -1,6 +1,10 @@
 class Agreement < ActiveRecord::Base
-  attr_accessible :content, :topic_id, :user_id
-  #i'm pretty sure these need to be protected somehow
+  #attr_accessible :content, :topic_id, :user_id
+  
+  #TODO: add methods needed by any controllers using these attributes, e.g. create
+  # content should be writeable upon create, otherwise only updated by admins
+  # user_id (author) should only be updateable to anonymous
+  attr_protected :content, :topic_id, :user_id
 
   acts_as_voteable
 
