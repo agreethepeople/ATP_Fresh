@@ -3,8 +3,19 @@ class AgreementsController < ApplicationController
 	before_filter :admin, only: [:destroy]
 
 	def create
-		@agreement = Agreement.create(params[:agreement])
-		if @agreement.save
+
+		#make sure the author is the logged in user
+		author = User.find_by_id(params[:agreement][:user_id])
+		if !current_user?(author)
+			flash[:failure] = "Incorrect author for current user"
+			redirect_to root_path
+			return
+		end
+
+
+		@agreement = Agreement.new
+
+		if @agreement.protected_creation(params[:agreement])
 			flash[:success] = "Agreement created!"
 			redirect_to "/#{@agreement.topic.slug}?agreement=#{@agreement.id}"
 		else

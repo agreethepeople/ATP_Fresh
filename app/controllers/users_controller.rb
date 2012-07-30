@@ -89,9 +89,6 @@ class UsersController < ApplicationController
       end
     end
 
-    # def not_signed_in
-    #   redirect_to root_path unless !signed_in?
-    # end
 
     def correct_user
       @user = User.find(params[:id])
@@ -102,8 +99,6 @@ class UsersController < ApplicationController
       redirect_to(root_path) unless current_user.admin?
     end
 
-
-  #private
 
 
 end

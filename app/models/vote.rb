@@ -8,10 +8,12 @@ class Vote < ActiveRecord::Base
   belongs_to :voteable, :polymorphic => true
   belongs_to :voter, :polymorphic => true
 
-  attr_accessible :vote, :voter, :voteable, :value, :tweeted, :voter_id, :voteable_id
-
+  attr_accessible :vote, :value, :tweeted
+  #TODO: add methods needed by any controllers using these attributes, e.g. create
+  attr_protected :voter, :voteable, :voter_id, :voteable_id
 
   # Comment out the line below to allow multiple votes per user.
   validates_uniqueness_of :voteable_id, :scope => [:voteable_type, :voter_type, :voter_id]
+
 
 end

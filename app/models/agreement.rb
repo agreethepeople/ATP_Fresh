@@ -1,6 +1,10 @@
 class Agreement < ActiveRecord::Base
-  attr_accessible :content, :topic_id, :user_id
-  #i'm pretty sure these need to be protected somehow
+  #attr_accessible :content, :topic_id, :user_id
+  
+  #TODO: add methods needed by any controllers using these attributes, e.g. create
+  # content should be writeable upon create, otherwise only updated by admins
+  # user_id (author) should only be updateable to anonymous
+  attr_protected :content, :topic_id, :user_id
 
   acts_as_voteable
 
@@ -12,7 +16,6 @@ class Agreement < ActiveRecord::Base
 
 # for a link
 #validates_format_of :domain_name, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
-
 
 
 	 def self.all_voted_on_by_user_and_topic(user, topic)
@@ -28,10 +31,15 @@ class Agreement < ActiveRecord::Base
 	 end
 
 
+	 def protected_creation(attributes)
+		self.content = attributes[:content]
+		self.topic_id = attributes[:topic_id]
+		self.user_id = attributes[:user_id]
+		return(self.save)
+	 end
 
-	 # def self.all_voted_on_by_user(user)
-	 # 	agreements = Agreement.where(user_id: user.id)
-	 # end
+
+
 
 end
 
