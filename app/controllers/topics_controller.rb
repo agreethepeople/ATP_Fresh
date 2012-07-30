@@ -5,8 +5,7 @@ include TopicsHelper
 class TopicsController < ApplicationController
 
   before_filter :signed_in_user, only: [:agreements]
-
-
+  before_filter :admin, only: [:create]
 
   respond_to :html, :js
 
@@ -40,14 +39,14 @@ class TopicsController < ApplicationController
   end
 
 
-  private
-    
-    def signed_in_user
-      unless signed_in?
-        #store_location
-        redirect_to root_path, notice: "Please sign in."
-      end
-    end
+
+  def create
+    #maybe make a page in New that populates from a table of suggested topics with a link for create and destroy
+    newTopic = Topic.new
+    title = params[:title]
+    newTopic.make_safe_topic(title)
+  end
+
 
 
 

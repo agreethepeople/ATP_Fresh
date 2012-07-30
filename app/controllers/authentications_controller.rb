@@ -16,6 +16,7 @@ class AuthenticationsController < ApplicationController
 		handle = auth['info']['nickname']
 
 		user = User.find_or_create_by_twitter_handle(handle)
+
 		user.name = auth['info']['name']
 			#update anything else the user may have changed on their twitter profile
 			#maybe picture? whatevs

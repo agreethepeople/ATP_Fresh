@@ -35,11 +35,15 @@ class VotesController < ApplicationController
 
 			end
 
-			if value == :against
-				@vote_user.vote_exclusively_against(@vote_agreement, value)
-			else
-				@vote_user.vote_exclusively_for(@vote_agreement, value)
-			end
+		      if value == :against
+		        @vote_user.vote_exclusively_against(@vote_agreement, value)
+		      else
+		        @vote_user.vote_exclusively_for(@vote_agreement, value)
+		        #@vote_user.vote_in_model(@vote_agreement, { :direction => :up, :exclusive => true, :value => value })
+		      end
+
+
+
 		end
 		respond_to do |format|
 		  format.html { redirect_to mainpage_path(@topic.slug) }

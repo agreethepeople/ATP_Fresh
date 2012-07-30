@@ -23,4 +23,11 @@ class Topic < ActiveRecord::Base
     where("id IN (#{interested_topics})", user_id: user)
   end
 
+  def make_safe_topic(title)
+    self.title = title
+    self.slug = title.strip.downcase.gsub(/ /,'-')
+    self.save!
+  end
+
+
 end

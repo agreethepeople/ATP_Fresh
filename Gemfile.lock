@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/xgess/thumbs_up.git
-  revision: 986bc73d8469510e8436d0208d4ceaa9468f4e92
+  revision: 8c2d9b448689c3c63750646c1255bf98237619bb
   specs:
     thumbs_up (0.5.7)
       activerecord
