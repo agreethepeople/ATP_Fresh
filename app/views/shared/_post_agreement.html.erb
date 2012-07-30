@@ -5,7 +5,7 @@
 	<div><%= f.hidden_field :user_id, value: current_user.id %></div>
 	<div><%= f.hidden_field :topic_id, value: @topic.id %></div>	
 	<div class="field">
-			<%= f.text_area :content, placeholder: "You only get 140 characters, so make them count.", 
+			<%= f.text_area :content, placeholder: "You only get 140 characters, so make them count. This is not a tweet and will not go to twitter unless you want it to.", 
 			cols: 80, rows: 3, maxlength: 140 %>
 			
 			<%= f.submit "Add to #{@topic.title}", class: "btn btn-primary" %>

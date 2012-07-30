@@ -27,9 +27,16 @@
                 <%= link_to user_path(current_user, :topic => @topic.id) do %>
 
                   <% float_complete = (@topic.agreements.count - agreements_left_in_topic_for_user(current_user, @topic)) * 100.0 / @topic.agreements.count %>
-                  <div class="progress progress-striped active progress-info">
-                      <div class="bar" style="width: <%=float_complete%>%;"> </div>
-                  </div>
+                  <% if float_complete == 100 %>
+                        <div class="progress progress-info">
+                          <div class="bar" style="width: <%=float_complete%>%;">
+                          </div>
+                        </div>
+                  <% else %>
+                        <div class="progress progress-striped active progress-info">
+                            <div class="bar" style="width: <%=float_complete%>%;"> </div>
+                        </div>
+                  <% end %>
 
 
                 <% end %>
