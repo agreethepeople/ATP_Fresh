@@ -1,4 +1,5 @@
-	<font size=4>
-		<%= link_to topic.title, topic.slug %>
+<p>
+	<font size=5>
+		<%= link_to topic.title, topic.slug %>: <%=votes_for_a_topic(topic)%> votes
 	</font>
-	</br>
+</p>

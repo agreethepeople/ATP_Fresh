@@ -1,8 +1,8 @@
 <% provide(:title, 'All Topics') %>
+<div class="row">
+	
 		<h1>All Topics</h1>
 		
-<div class="row">
-		<div class="span4">
 
 			<%= will_paginate %>
 
@@ -12,16 +12,12 @@
 
 			<%= will_paginate %>
 
-		</div>
 
+<br><br>
 
-		<div class="span4">
-
-
-			<%= render 'shared/suggest_a_topic' %>
-
-		</div>
+<div class="span4">
+	<%= render 'shared/suggest_a_topic' %>
 </div>
 
 
-
+</div>

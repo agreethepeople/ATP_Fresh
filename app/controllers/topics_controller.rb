@@ -11,7 +11,8 @@ class TopicsController < ApplicationController
 
   def index
     #all the topics
-    @topics = Topic.paginate(page: params[:page])
+      sorted = Topic.all.sort_by { |topic| topic.agreements.count }
+      @topics = sorted.reverse.paginate(page: params[:page], :per_page => 20)
     @suggested_topic = SuggestedTopic.new
 
   end

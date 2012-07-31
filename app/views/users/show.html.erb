@@ -7,7 +7,7 @@
 
       <% else %>
 
-        <h1>What <%= @user.twitter_handle %> wrote </h1>
+        <h1>What <%= @user.twitter_handle %> (<%= pluralize(@user.points, "point") %>) wrote </h1>
 
       <% end %>
 

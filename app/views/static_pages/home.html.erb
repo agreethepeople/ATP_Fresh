@@ -1,22 +1,38 @@
-      <div class="hero-unit">
-     <h1>Agree the People</h1><br>
-     
-		<TABLE>
-	     	<tr>
-	     		<td style="vertical-align:top" width=55%>
-				    <font color="#aaaaaa" size=5>
-				     	Respond to Agreements <br>
-				     	Build your Stances <br>
-				     	Influence the Discussion<br>
-				     	See your Impact
-				   	</font>
-				</td>
 
-				<td cellpadding="100">
-					<%= render @topics %>
-				</td>
-			</tr>
-		</table>
 
+
+<div class="hero-unit row">
+     <div class="span8">
+     	<h1><font color="black">Agree the People</font></h1>
+		<br><br>
 	</div>
+     
+     
+     	<div class="aside8">
+     		<div class="span4">
+				<font color="#aaaaaa" size=5>
+			     	Vote and Contribute<br>
+			     	Get Personalized Analytics
+			     	<b><i><font size=6>Issue Discussion That Doesn't Suck</font><br></b></i>
+			   	</font>
+			   	<center><br><br>
+			   	<%= image_tag "statue.jpg", :size => "215x250" %>
+			   	<center>
+			</div>
+			<div class="span3">
+				<%= render 'landing_page_topics' %>
+			</div>
+		</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 

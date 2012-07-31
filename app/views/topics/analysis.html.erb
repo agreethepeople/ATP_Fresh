@@ -2,7 +2,12 @@
         <h1><%= @topic.title %>: Analysis</h1>
       <div class="hero-unit">
         <h2>
-        	There's not quite enough data yet for all of the amazing stuff we have planned. Seriously, check back soon.
-
+        	These issues are not black-boxes of mystery, and people really do have more in common than they think. This is where we will tell the story in visualizations of this issue focused on you and your agreements -- once we have enough data.
+        	<br><br>
+        	The best thing you can do to help us get this piece off the ground is share a link. Here, we'll make it super easy for you: <%= link_to "www.agreethepeople.com/#{@topic.slug}", mainpage_path(@topic.slug) %>. Thanks so much!
         </h2>
     </div>
+
+
+
+

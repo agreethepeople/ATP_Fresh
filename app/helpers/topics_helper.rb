@@ -31,7 +31,9 @@ module TopicsHelper
 		end
 	end
 
-
+	def votes_for_a_topic(topic)
+		return topic.total_votes_for
+	end
 
 	def current_vote_for_helper(user, agreement)
 		return user.current_vote_on(agreement)

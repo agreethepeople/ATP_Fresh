@@ -15,6 +15,8 @@ class AuthenticationsController < ApplicationController
 		auth = request.env["omniauth.auth"]
 		handle = auth['info']['nickname']
 
+		#puts "TWITTER LOGIN IMAGE URL: #{auth['info']['image']}"
+
 		user = User.find_or_create_by_twitter_handle(handle)
 
 		user.name = auth['info']['name']

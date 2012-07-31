@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 include ActionView::Helpers::TextHelper
 include AuthenticationsHelper
 
@@ -49,10 +51,9 @@ class UsersController < ApplicationController
       puts User.all
       users = User.all#Array.new(1) { Array.new(2) }
       sorted = users.sort_by { |user| user.points }
-      puts sorted
 
-
-      @users = User.paginate(page: params[:page])
+      @users = sorted.reverse.paginate(page: params[:page], :per_page => 20)
+      #@users = User.paginate(page: params[:page])
   end
 
 

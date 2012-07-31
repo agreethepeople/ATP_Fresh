@@ -29,5 +29,12 @@ class Topic < ActiveRecord::Base
     return(self.save)
   end
 
+  def total_votes_for
+    sum = 0
+    self.agreements.each{ |agree| sum+=agree.votes.count }
+#    self.agreements.inject{|sum,x| sum + x.votes.count }
+    sum
+  end
+
 
 end

@@ -32,6 +32,9 @@ class User < ActiveRecord::Base
   		format: { with: VALID_EMAIL_REGEX }#, 
  # 		uniqueness: { case_sensitive: false }
 
+ # VALID_LINK_REGEX = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
+ #  validates :imagelink, format: { with: VALID_LINK_REGEX }
+
 
 #  validates :password, length: { minimum: 6 }
 #  validates :password_confirmation, presence: true
