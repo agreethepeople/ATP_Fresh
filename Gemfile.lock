@@ -39,7 +39,6 @@ GEM
     addressable (2.2.8)
     annotate (2.4.1.beta1)
     arel (3.0.2)
-    bcrypt-ruby (3.0.1)
     bootstrap-sass (2.0.0)
     bootstrap-will_paginate (0.0.6)
       will_paginate
@@ -197,7 +196,6 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (~> 2.4.1.beta)
-  bcrypt-ruby (= 3.0.1)
   bootstrap-sass (= 2.0.0)
   bootstrap-will_paginate (= 0.0.6)
   capybara (= 1.1.2)
