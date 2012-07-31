@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120730205446) do
+ActiveRecord::Schema.define(:version => 20120731045741) do
 
   create_table "agreements", :force => true do |t|
     t.text     "content"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20120730205446) do
     t.string   "remember_token"
     t.boolean  "admin",           :default => false
     t.string   "twitter_handle",  :default => ""
+    t.text     "imagelink"
   end
 
   create_table "votes", :force => true do |t|

@@ -14,7 +14,7 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
   #TODO: add methods needed by any controllers using admin
-  attr_protected :admin, :twitter_handle
+  attr_protected :admin, :twitter_handle, :imagelink
   
   has_many :agreements
   has_many :authentications
@@ -32,8 +32,11 @@ class User < ActiveRecord::Base
   		format: { with: VALID_EMAIL_REGEX }#, 
  # 		uniqueness: { case_sensitive: false }
 
- # VALID_LINK_REGEX = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
- #  validates :imagelink, format: { with: VALID_LINK_REGEX }
+
+  VALID_LINK_REGEX = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
+  validates :imagelink, format: { with: VALID_LINK_REGEX },#, default: "http://a0.twimg.com/sticky/default_profile_images/default_profile_2_normal.png"
+  :allow_nil => true
+
 
 
 #  validates :password, length: { minimum: 6 }

@@ -20,9 +20,11 @@ class AuthenticationsController < ApplicationController
 		user = User.find_or_create_by_twitter_handle(handle)
 
 		user.name = auth['info']['name']
+		user.imagelink = auth['info']['image']
 			#update anything else the user may have changed on their twitter profile
 			#maybe picture? whatevs
 		user.authentications.find_or_create_by_provider_and_uid(auth['provider'], auth['uid'])
+		
 		user.email = "replace-me-please@example.com" if !user.valid?
 		user.save!
 		flash[:success] = "Welcome, @#{user.twitter_handle}! We won't tweet or follow or in any way abuse your trust."
