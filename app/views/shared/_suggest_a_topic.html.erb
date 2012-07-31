@@ -1,0 +1,14 @@
+
+<h2>Suggest a Topic</h2>
+
+<%= form_for(@suggested_topic) do |f| %>
+  <div class="field">
+    <%= f.text_field :title, placeholder: "What are you interested in?", maxlength: 50 %>
+  </div>
+  <%= f.submit "Suggest", class: "btn btn-primary" %>
+<% end %>
+
+<% if current_user.admin? %>
+	<%= link_to "See Suggestions", suggested_topics_path, class: "btn btn-info btn-large" %>
+<% end %>
+

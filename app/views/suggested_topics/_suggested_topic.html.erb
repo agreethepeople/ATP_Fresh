@@ -1,0 +1,19 @@
+<li>
+
+
+	<font color="green" size=2><%= suggested_topic.created_at.strftime("%a %I:%M%p") %> | </font>
+	<font size=4>
+		<%= suggested_topic.title %>
+
+		<% if current_user.admin? %>
+			| 	<%= link_to "DELETE", suggested_topic, method: :delete, class: "btn btn-danger" %> 
+			| 	<%= form_tag('/topics', :method => "post") do %>
+					<%= hidden_field_tag "title", suggested_topic.title %>
+				  	<%= submit_tag "ADD IT", class: "btn btn-primary" %>
+				<% end %>
+
+
+		<% end %>
+
+	</font>
+</li>

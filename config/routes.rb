@@ -11,6 +11,10 @@ ATPFresh::Application.routes.draw do
   resources :authentications, only: [:new, :create, :destroy]
 
 
+  resources :suggested_topics, only: [:create, :destroy, :index]
+
+
+
   resources :users
 
   match '/help',    to: 'static_pages#help'
@@ -19,7 +23,8 @@ ATPFresh::Application.routes.draw do
   match "/blog" => redirect("http://agreethepeople.tumblr.com"), :as => :blog
 
 
-  resources :topics, only: [:index, :show]
+  resources :topics, only: [:index, :show, :create]
+  
   match '/all', to: 'topics#index', via: :get
   #match "/topics/:id" => redirect("/%{Topic.find(:id).slug}")
   match '/:slug/analysis' => 'topics#analysis', via: :get, as: "analysis"

@@ -26,7 +26,7 @@ class Topic < ActiveRecord::Base
   def make_safe_topic(title)
     self.title = title
     self.slug = title.strip.downcase.gsub(/ /,'-')
-    self.save!
+    return(self.save)
   end
 
 
