@@ -67,6 +67,9 @@ module ATPFresh
     config.assets.version = '1.0'
 
 
+    #########
+    ### pulled from environments/production.rb
+    config.force_ssl = false
 
 
   end
