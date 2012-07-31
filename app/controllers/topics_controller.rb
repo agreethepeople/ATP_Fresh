@@ -1,6 +1,10 @@
 include ActionView::Helpers::TextHelper
 include TopicsHelper
 #require 'ruby-bitly'
+require 'will_paginate/array'
+
+
+
 
 class TopicsController < ApplicationController
 
@@ -11,9 +15,9 @@ class TopicsController < ApplicationController
 
   def index
     #all the topics
-      sorted = Topic.all.sort_by { |topic| topic.agreements.count }
+     sorted = Topic.all.sort_by { |topic| topic.agreements.count }
       @topics = sorted.reverse.paginate(page: params[:page], :per_page => 20)
-    @suggested_topic = SuggestedTopic.new
+      @suggested_topic = SuggestedTopic.new
 
   end
 

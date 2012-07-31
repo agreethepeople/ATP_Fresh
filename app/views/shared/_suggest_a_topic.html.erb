@@ -7,7 +7,7 @@
   <%= f.submit "Suggest", class: "btn btn-primary" %>
 <% end %>
 
-<% if current_user.admin? %>
+<% if current_user && current_user.admin? %>
 	<%= link_to "See Suggestions", suggested_topics_path, class: "btn btn-info btn-large" %>
 <% end %>
 
