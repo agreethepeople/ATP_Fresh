@@ -1,0 +1,11 @@
+<% provide(:title, 'Suggested Topics') %>
+
+       <h1>Suggested Topics</h1>
+
+        <%= will_paginate %>
+
+        <ul class="suggested_topics">
+          <%= render @suggested_topics %>
+        </ul>
+
+        <%= will_paginate %>

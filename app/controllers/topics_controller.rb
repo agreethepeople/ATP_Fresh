@@ -5,13 +5,15 @@ include TopicsHelper
 class TopicsController < ApplicationController
 
   before_filter :signed_in_user, only: [:agreements]
-  before_filter :admin, only: [:create]
+  before_filter :admin_user, only: [:create]
 
   respond_to :html, :js
 
   def index
     #all the topics
     @topics = Topic.paginate(page: params[:page])
+    @suggested_topic = SuggestedTopic.new
+
   end
 
   def show
@@ -41,13 +43,29 @@ class TopicsController < ApplicationController
 
 
   def create
-    #maybe make a page in New that populates from a table of suggested topics with a link for create and destroy
+    puts params
     newTopic = Topic.new
     title = params[:title]
-    newTopic.make_safe_topic(title)
+    if newTopic.make_safe_topic(title)
+      flash[:success] = "added #{title}!" 
+    else
+      flash[:failure] = "something went wrong"
+    end
+
+    #also destroy the suggestion
+    suggestion = SuggestedTopic.find_by_title(title)
+    suggestion.destroy if suggestion
+
+    redirect_to suggested_topics_path
   end
 
 
+
+  private
+
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
+    end
 
 
 end

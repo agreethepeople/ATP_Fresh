@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120718163542) do
+ActiveRecord::Schema.define(:version => 20120730205446) do
 
   create_table "agreements", :force => true do |t|
     t.text     "content"
@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(:version => 20120718163542) do
     t.string   "provider"
     t.string   "uid"
     t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "suggested_topics", :force => true do |t|
+    t.text     "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
